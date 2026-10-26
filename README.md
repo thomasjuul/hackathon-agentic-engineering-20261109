@@ -1,5 +1,5 @@
 # Agentic Engineering Hackathon 
-#### Copenhagen 09/11/2026
+#### Copenhagen 09/11/2026 - 10/11/2026
 
 ## Agenda
 
