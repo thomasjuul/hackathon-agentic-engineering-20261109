@@ -1,9 +1,10 @@
-# Agentic Engineering Hackathon 
-#### Copenhagen 09/11/2026 - 10/11/2026
+# Agentic Engineering Hackathon
 
+The goal of this hackathon is to become more familiar with agentic engineering: understand its concepts, practise applying them, and use Codex to solve given tasks. The sample application provides a shared exercise for that learning.
+
+By the end, you should be able to explain the concepts in your own words, apply them to a task, and guide Codex through a solution you can check and review. You do not need to be an expert in the application stack.
 
 ## Agenda
-
 
 ### Day 1 — Engineer the Agent (08:30–16:00)
 
