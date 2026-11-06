@@ -51,7 +51,7 @@ The same approach applies across the software development lifecycle: understand 
 
 ## Get your case material
 
-Clone [the hackathon repository](https://github.com/twoday-ai/hackathon-agentic-engineering-20261109). Open `case/start-here` in VS Code or VS Code Insiders and work there throughout the five sessions. Everything for the case is under `case`: guides, starting code, checks, and all six saved versions in `case/checkpoints`. Use completed checkpoints for reference or recovery and explain any supplied work. The repository also has `demos` for hackathon demonstrations and `slides` for presentation material; these are separate from your case work.
+Clone [the hackathon repository](https://github.com/twoday-ai/hackathon-agentic-engineering-20261109). Open `case/start-here` in VS Code or VS Code Insiders and work there throughout the five sessions. Everything for the case is under `case`: guides, starting code, project tests, and all six saved versions in `case/checkpoints`. Use completed checkpoints for reference or recovery and explain any supplied work. The repository also has `demos` for hackathon demonstrations and `slides` for presentation material; these are separate from your case work.
 
 ## Before the first build
 

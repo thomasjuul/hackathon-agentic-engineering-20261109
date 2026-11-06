@@ -22,7 +22,7 @@ The API tests use a separate temporary SQLite database; passing them does not pr
 
 ## Optional automated PostgreSQL/browser journey
 
-The final reference includes Playwright configuration and the journey test. For your implementation, use the `web/` acceptance files in `case/acceptance-tests/session-5`; merge them while preserving your tests. Stop development API/frontend processes to free ports 5080 and 5173.
+The final reference includes Playwright configuration and the journey test. Run this optional browser check from `case/checkpoints/05-final-solution/web`. For your own implementation, ask Codex to add a browser check for the same journey using your code. Stop development API/frontend processes to free ports 5080 and 5173.
 
 As the PostgreSQL administrator, create a fresh dedicated database, with autocommit enabled:
 

@@ -16,7 +16,7 @@ Follow [setup](docs/00-before-first-build.md). Use installed PostgreSQL on Windo
 | 4 | [Mark a request Reviewed and check the result](docs/04-build-session-4.md) |
 | 5 | [Add Status to an existing export](docs/05-build-session-5.md) |
 
-Your session guides, challenges, glossary, and help stay in `case/docs`. Your application and its project-specific documentation stay in `case/start-here`. Each session's additional checks are in `case/acceptance-tests`; ask the facilitator for help using them. Open the current session card in `case/docs` and give Codex that task explicitly.
+Your session guides, challenges, glossary, and help stay in `case/docs`. Your application and its project-specific documentation stay in `case/start-here`. Open the current session card in `case/docs` and give Codex that task explicitly.
 
 ## 3. Use the help when you need it
 
