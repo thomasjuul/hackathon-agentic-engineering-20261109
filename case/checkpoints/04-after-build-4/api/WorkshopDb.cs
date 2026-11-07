@@ -22,7 +22,7 @@ public sealed class ActivityEntry
     public Guid Id { get; set; } = Guid.NewGuid();
     public Guid RequestId { get; set; }
     public string Action { get; set; } = "";
-    public string Actor { get; set; } = "Workshop caseworker";
+    public string Actor { get; set; } = "Request officer";
     public DateTimeOffset OccurredAt { get; set; } = DateTimeOffset.UtcNow;
     public string CorrelationId { get; set; } = "";
 }

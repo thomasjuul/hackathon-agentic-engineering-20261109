@@ -12,3 +12,7 @@ Available skills: frame-task, implement-api-feature, implement-business-rules, i
 Use only definitions that exist. Microsoft Learn and OpenAI Docs MCP provide remote reference tools; optional remote GitHub requires approved access. Read local business rules directly. Documentation is not runtime evidence. Do not launch an MCP server locally or expose credentials. Role instructions do not grant extra permissions.
 
 Use the domain advisor to clarify business decisions and the technical advisor to plan changes using existing code. The implementer applies only the implementation skills listed as available here after the plan is agreed. For browser work before a React skill exists, follow the existing components and typed API client. These roles guide implementation, not only verification.
+
+## Product UI
+
+Treat Request Workbench as a real business application. User-facing UI must never mention the hackathon, workshop, training case, exercises, tasks, build sessions, checkpoints, demos, participants, Codex, or implementation instructions. This applies to headings, page titles, labels, help text, empty/loading/error states, footers, accessibility text, and activity data. Use business language only. Keep all learning instructions in the accompanying documentation, outside the application UI.

@@ -198,7 +198,9 @@ Build a report or viewer that connects each scenario to its observed evidence an
 From session-4 core, build a local investigation workbench for incomplete review rejection, repeated review with one activity, and editing protection after review. Use a separate disposable setup and never erase the demo database. Capture actual API/log/activity results in a readable report. Plan isolation first, work in bounded steps, and demonstrate a controlled defect and repair.
 ```
 
-## Session 5
+## Export extensions
+
+These are additional optional practice after [adding Status](optional-export-extension.md), outside the four core build sessions. They are not required for the showcase.
 
 ### Optional 1: Filtered CSV export across UI and API
 
@@ -208,7 +210,7 @@ Let the caseworker export all requests, only New requests, or only Reviewed requ
 
 **What you do:**
 
-Inspect the exporter, its callers, and tests before changing it. Agree how the three choices should behave. Then add the choice in the screen and matching filtering on the server. Include a useful filename. No filter must keep the session-5 export, including Status.
+Inspect the exporter, its callers, and tests before changing it. Agree how the three choices should behave. Then add the choice in the screen and matching filtering on the server. Include a useful filename. No filter must keep the optional Status export, including Status.
 
 Reject unknown filter values with a clear error. Demonstrate all three choices and the earlier unfiltered call. Then write a short note explaining which parts of the app are affected and what the caseworker sees differently.
 
@@ -219,7 +221,7 @@ Reject unknown filter values with a clear error. Demonstrate all three choices a
 **Try this with Codex:**
 
 ```text
-Inspect the session-5 exporter and callers. Add All/New/Reviewed export choices and matching server filtering with a helpful filename. Preserve the default Status-bearing export and formatting. Reject unknown values, demonstrate the choices and old caller, and explain the effect on existing use.
+Inspect the optional Status exporter and callers. Add All/New/Reviewed export choices and matching server filtering with a helpful filename. Preserve the default Status-bearing export and formatting. Reject unknown values, demonstrate the choices and old caller, and explain the effect on existing use.
 ```
 
 ### Optional 2: Two export contracts with a legacy consumer
@@ -241,5 +243,5 @@ Demonstrate the old consumer succeeding with the old-format route and rejecting 
 **Try this with Codex:**
 
 ```text
-From session-5 core, build an old consumer that requires exactly the original two columns. Keep our current Status-bearing export and add a separate legacy two-column route using shared formatting. Demonstrate compatible and incompatible calls. Explain the compatibility impact and possible migration. Do not assume filtering exists.
+From the optional Status export extension, build an old consumer that requires exactly the original two columns. Keep our current Status-bearing export and add a separate legacy two-column route using shared formatting. Demonstrate compatible and incompatible calls. Explain the compatibility impact and possible migration. Do not assume filtering exists.
 ```

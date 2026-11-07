@@ -10,3 +10,7 @@ Available custom agents: workshop_analyst, workshop_implementer.
 Available skills: frame-task, implement-slice, map-context.
 
 Use only definitions that exist. Microsoft Learn and OpenAI Docs MCP provide remote reference tools; optional remote GitHub requires approved access. Read local business rules directly. Documentation is not runtime evidence. Do not launch an MCP server locally or expose credentials. Role instructions do not grant extra permissions.
+
+## Product UI
+
+Treat Request Workbench as a real business application. User-facing UI must never mention the hackathon, workshop, training case, exercises, tasks, build sessions, checkpoints, demos, participants, Codex, or implementation instructions. This applies to headings, page titles, labels, help text, empty/loading/error states, footers, accessibility text, and activity data. Use business language only. Keep all learning instructions in the accompanying documentation, outside the application UI.

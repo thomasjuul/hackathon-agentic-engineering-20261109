@@ -1,6 +1,6 @@
 # Final solution and local release
 
-Use your own working copy. Your case material includes `case/checkpoints/05-final-solution` as a supplied reference. Follow [setup](00-before-first-build.md) for installed PostgreSQL and dependency preparation.
+Use your own working copy. Your case material includes `case/checkpoints/04-after-build-4` as the core reference and `case/checkpoints/05-final-solution` as an optional export reference. Follow [setup](00-before-first-build.md) for installed PostgreSQL and dependency preparation.
 
 ## Choose what you need
 
@@ -22,7 +22,7 @@ The API tests use a separate temporary SQLite database; passing them does not pr
 
 ## Optional automated PostgreSQL/browser journey
 
-The final reference includes Playwright configuration and the journey test. Run this optional browser check from `case/checkpoints/05-final-solution/web`. For your own implementation, ask Codex to add a browser check for the same journey using your code. Stop development API/frontend processes to free ports 5080 and 5173.
+The optional export reference includes Playwright configuration and a journey test that also expects the optional Status column. It is not a core acceptance gate. Run this optional browser check from `case/checkpoints/05-final-solution/web`. For your own implementation, ask Codex to add a browser check for the core journey using your code, without requiring the optional Status column. Stop development API/frontend processes to free ports 5080 and 5173.
 
 As the PostgreSQL administrator, create a fresh dedicated database, with autocommit enabled:
 
@@ -69,7 +69,7 @@ Lead with what you learned: explain a concept, show how you applied it, and desc
 
 Open Fjordby, whose budget is missing. Then show the explanation, edit the checkbox, save, and reload.
 
-Mark it Reviewed and show the activity entry and read-only result. Then keep another request New. Export CSV and show both statuses in the final column.
+Mark it Reviewed and show the activity entry and read-only result. Then keep another request New. If you completed the optional export extension, also show both statuses in the final column; this is not required for the core showcase.
 
 Show one test result, the traced execution graph and agent execution record, and explain one improvement to context, instructions, verification, or stopping rules.
 

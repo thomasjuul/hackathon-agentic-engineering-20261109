@@ -134,11 +134,11 @@ Give a recommendation; leave the acceptance decision to me.
 
 The app's **Mark reviewed** button changes a business request. Your review of **code changes** is a separate human decision.
 
-## Session 5: Change existing code
+## Optional export extension: Change existing code
 
 **Brownfield** means code already exists and people may rely on its behavior. Here, the CSV exporter already works. Understand it before adding Status.
 
-Open [session 5](05-build-session-5.md). Create and use `change-brownfield`.
+Open [the optional export extension](optional-export-extension.md). Create and use `change-brownfield`.
 
 ```text
 Inspect the exporter, its callers, its tests, and an actual download before editing.

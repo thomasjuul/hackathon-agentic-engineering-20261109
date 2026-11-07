@@ -8,8 +8,8 @@ This is a technical reference for you and Codex. The browser sends a call to an 
 | --- | --- | --- | --- |
 | Available | Check the app/database connection | GET `/api/health` | `{status:"ok", database:true}` |
 | Available | Download the existing export | GET `/api/requests/export` | CSV with Municipality and Project title |
-| Planned | Get the list | GET `/api/requests` | A list of `{id, municipality, projectTitle, status}` |
-| Planned | Open one request | GET `/api/requests/{id}` | Its details, described below |
+| Available | Get the list | GET `/api/requests` | A list of `{id, municipality, projectTitle, status}` |
+| Available | Open one request | GET `/api/requests/{id}` | Its details, described below |
 | Planned | Check what is missing | POST `/api/requests/{id}/check` | `{isReady, missingFields:string[]}` |
 | Planned | Save the four editable fields | PUT `/api/requests/{id}` | Updated details; incomplete drafts may be saved |
 | Planned | Mark a complete request Reviewed | POST `/api/requests/{id}/review` | Updated details and activity |

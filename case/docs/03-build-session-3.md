@@ -1,6 +1,8 @@
 # Build session 3: Correct missing information and save it
 
-**When:** Day 1, 15:00–15:45. **Time:** 30 minutes core, up to 10 optional, then 5 for reflection.
+**When:** Day 2, 09:30–11:30. **Time:** 85 minutes core, up to 25 optional, then 10 for reflection and handoff.
+
+Resume your Build 2 result after the Day 2 follow-up and Loop and Graph Engineering. Use the longer build to exercise the workflow, inspect feedback and improve your guidance. Keep graph engineering conceptual: a simple workflow with retry, stop and human handoff branches is enough.
 
 ## What you are learning
 

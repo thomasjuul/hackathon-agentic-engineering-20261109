@@ -6,7 +6,7 @@ A two-day hackathon about working with Codex and understanding agentic engineeri
 
 The goal is to understand the concepts, practise using them, and become more confident solving tasks with Codex. You do not need to be an expert in C#, React, or databases.
 
-You will improve one small application during five build sessions. Each session introduces a way of working with an agent, then gives you a task where you can try it. Use the prepared code, ask for explanations, and check the results yourself.
+You will improve one small application during four build sessions. Each session introduces a way of working with an agent, then gives you a task where you can try it. Use the prepared code, ask for explanations, and check the results yourself.
 
 ## The story
 
@@ -41,23 +41,22 @@ The saved status is either **New** or **Reviewed**. “Information missing” an
 
 | Build session | What the app gains | What you practise with Codex |
 | --- | --- | --- |
-| 1: See the requests | A list and details for the selected request | Give a clear instruction and useful context |
+| 1: Improve the request workspace | A verified usability improvement to the supplied list and details | Give a clear instruction and useful context |
 | 2: Check the information | A message explaining what is missing | Create agents and skills that guide repeatable work |
 | 3: Correct and save | Editing, saving, and updated checks | Try, check, repair, and stop within agreed limits |
 | 4: Review the request | Mark Reviewed and show its activity | Check results, follow what happened, and review the change |
-| 5: Improve an existing export | Add Status to the existing CSV download | Understand existing code and preserve behavior while changing it |
 
 The same approach applies across the software development lifecycle: understand the need, plan, build, check, review, release, and improve. The app itself does not need an AI feature or model API key. Your learning comes from how you work with Codex to develop it.
 
 ## Get your case material
 
-Clone [the hackathon repository](https://github.com/twoday-ai/hackathon-agentic-engineering-20261109). Open `case/start-here` in VS Code or VS Code Insiders and work there throughout the five sessions. Everything for the case is under `case`: guides, starting code, project tests, and all six saved versions in `case/checkpoints`. Use completed checkpoints for reference or recovery and explain any supplied work. The repository also has `demos` for hackathon demonstrations and `slides` for presentation material; these are separate from your case work.
+Clone [the hackathon repository](https://github.com/twoday-ai/hackathon-agentic-engineering-20261109). Open `case/start-here` in VS Code or VS Code Insiders and work there throughout the four sessions. Everything for the case is under `case`: guides, starting code, project tests, and all six saved versions (five core stages plus an optional export reference) in `case/checkpoints`. Use completed checkpoints for reference or recovery and explain any supplied work. The repository also has `demos` for hackathon demonstrations and `slides` for presentation material; these are separate from your case work.
 
 ## Before the first build
 
 Use .NET 10/C#, React/TypeScript, PostgreSQL installed on Windows, VS Code or VS Code Insiders, and Codex. The [setup guide](00-before-first-build.md) explains the direct commands and local database preparation. Complete setup before the event so build time can focus on the concepts.
 
-The starter contains the app structure, three sample requests, existing tests, two example agents, and three example skills. You create more agents and skills during the sessions. It also references remote Microsoft Learn and OpenAI Docs MCP services; no MCP server is installed on your laptop.
+The starter contains a working request list, read-only details, three sample requests, existing tests, two example agents, and three example skills. You create more agents and skills during the sessions. It also references remote Microsoft Learn and OpenAI Docs MCP services; no MCP server is installed on your laptop.
 
 ## A few words you will meet
 
@@ -89,15 +88,20 @@ Inspect the changed lines and decide whether to accept them. Then write a short 
 
 Work in pairs or groups of three if helpful. Take turns directing Codex, checking the app, and reviewing changes. Everyone should operate Codex and explain at least one decision.
 
-In session 2, creating two agents and three skills is a central task. Your session-2 advisors and skills guide business rules and API implementation. In session 3 you add coordination and React implementation guidance; session 4 adds dedicated checking/review roles and tracing. Session 5 adds existing-code change guidance. You will try the definitions, inspect their actual use, and improve them. This is more useful than simply copying completed answers.
+In session 2, creating two agents and three skills is a central task. Your session-2 advisors and skills guide business rules and API implementation. In session 3 you add coordination and React implementation guidance; session 4 adds dedicated checking/review roles and tracing. An optional export extension adds existing-code change guidance. You will try the definitions, inspect their actual use, and improve them. This is more useful than simply copying completed answers.
 
-## Your five session cards
+## Your four session cards
 
 - [Session 1 — See requests and open their details](01-build-session-1.md), day 1, 10:30–11:30.
-- [Session 2 — Give Codex reusable guidance](02-build-session-2.md), day 1, 13:00–14:30.
-- [Session 3 — Correct missing information and save it](03-build-session-3.md), day 1, 15:00–15:45.
-- [Session 4 — Mark a request Reviewed and check the result](04-build-session-4.md), day 2, 09:30–11:30.
-- [Session 5 — Add Status to an existing export](05-build-session-5.md), day 2, 12:30–14:30.
+- [Session 2 — Give Codex reusable guidance](02-build-session-2.md), day 1, 13:30–15:00.
+- [Session 3 — Correct missing information and save it](03-build-session-3.md), day 2, 09:30–11:30.
+- [Session 4 — Mark a request Reviewed and check the result](04-build-session-4.md), day 2, 12:30–14:30.
+
+## How the days fit together
+
+Day 1: Build 1 (10:30–11:30), Harness Engineering (12:30–13:30), then Build 2 (13:30–15:00). From Greenfield to Brownfield is a discussion at 15:00–15:45, followed by wrap-up; it needs no separate case or coding task.
+
+Day 2: after follow-up, Loop and Graph Engineering opens at 09:00–09:30, followed by Build 3 (09:30–11:30). Evaluation, Observability, and Governance runs at 12:00–12:30, followed by Build 4 (12:30–14:30): complete review/activity, check and refine the solution, and prepare the showcase. Basic checks, stopping conditions and human acceptance apply throughout. Graph engineering stays high level.
 
 ## Core and optional work
 
@@ -119,7 +123,7 @@ Show this short journey:
 
 Open an incomplete request and explain what is missing. Then correct it, save, and reload to show the change was stored.
 
-Mark it Reviewed and show the activity entry. Then export requests with their status, keeping at least one New and one Reviewed.
+Mark it Reviewed and show the activity entry. Keep at least one New and one Reviewed request. Exporting Status is optional and is not part of the core showcase.
 
 Show one actual passing check and explain one improvement in how you worked with Codex. Use your simple graph and work notes to explain a decision.
 

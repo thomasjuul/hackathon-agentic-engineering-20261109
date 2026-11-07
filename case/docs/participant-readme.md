@@ -14,9 +14,10 @@ Follow [setup](00-before-first-build.md). Use installed PostgreSQL on Windows, .
 | 2 | [Give Codex reusable guidance](02-build-session-2.md) |
 | 3 | [Correct missing information and save it](03-build-session-3.md) |
 | 4 | [Mark a request Reviewed and check the result](04-build-session-4.md) |
-| 5 | [Add Status to an existing export](05-build-session-5.md) |
 
 Your session guides, challenges, glossary, and help stay in `case/docs`. Your application and its project-specific documentation stay in `case/start-here`. Open the current session card in `case/docs` and give Codex that task explicitly.
+
+See [the agenda](agenda.md) for timings. Day 1 ends with a discussion of existing projects; there is no separate brownfield case. [Export extension](optional-export-extension.md) is optional.
 
 ## 3. Use the help when you need it
 

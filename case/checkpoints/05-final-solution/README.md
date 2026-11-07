@@ -1,3 +1,7 @@
+# Optional export reference
+
+This saved version extends the four-build core with Status export. For core completion use `04-after-build-4`. No fifth build session is scheduled.
+
 # Request Workbench
 
 A local request-tracking application. Each request contains a municipality name, project title, optional description, budget flag, and New or Reviewed status. The server checks whether the required information is present before review. Reviewed requests are read-only.

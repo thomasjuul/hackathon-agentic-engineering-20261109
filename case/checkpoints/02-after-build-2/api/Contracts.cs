@@ -9,5 +9,5 @@ bool BudgetAttached, RequestStatus Status, ReadinessResult? Readiness, IReadOnly
     public static RequestDetail From(ProjectRequest request) => new(request.Id, request.Municipality,
     request.ProjectTitle, request.Description, request.BudgetAttached, request.Status,
     Workshop.Api.Readiness.Evaluate(request), request.Activity.OrderBy(x => x.OccurredAt)
-        .Select(x => new ActivityView(x.Action, x.Actor, x.OccurredAt, x.CorrelationId)).ToList());
+        .Select(x => new ActivityView(x.Action, x.Actor.StartsWith("Workshop ") ? "Request officer" : x.Actor, x.OccurredAt, x.CorrelationId)).ToList());
 }

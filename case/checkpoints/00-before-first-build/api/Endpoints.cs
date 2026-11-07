@@ -14,6 +14,15 @@ public static class Endpoints
             var requests = await db.Requests.AsNoTracking().OrderBy(x => x.Municipality).ToListAsync();
             return Results.File(CsvExporter.Export(requests), "text/csv; charset=utf-8", "requests.csv");
         });
-        // TODO BUILD 1: add list and detail GET endpoints. See docs/api-contract.md.
+
+        app.MapGet("/api/requests", async (WorkshopDb db) =>
+            Results.Ok(await db.Requests.AsNoTracking().OrderBy(x => x.Municipality)
+            .Select(x => new RequestSummary(x.Id, x.Municipality, x.ProjectTitle, x.Status)).ToListAsync()));
+        app.MapGet("/api/requests/{id:guid}", async Task<IResult> (Guid id, WorkshopDb db) =>
+        {
+            var request = await db.Requests.AsNoTracking().Include(x => x.Activity).SingleOrDefaultAsync(x => x.Id == id);
+            return request is null ? Results.NotFound(new { message = "Request not found." })
+                : Results.Ok(RequestDetail.From(request));
+        });
     }
 }

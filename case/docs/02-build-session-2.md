@@ -1,6 +1,8 @@
 # Build session 2: Give Codex reusable guidance
 
-**When:** Day 1, 13:00–14:30. **Time:** 65 minutes core, up to 20 optional, then 5 for reflection.
+**When:** Day 1, 13:30–15:00. **Time:** 65 minutes core, up to 20 optional, then 5 for reflection.
+
+At 15:00, save your work and evidence and move to the Greenfield to Brownfield discussion. There is no further build on Day 1. Define success criteria, relevant checks and human decision boundaries during this build.
 
 ## What you are learning
 

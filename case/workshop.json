@@ -12,5 +12,8 @@
   "apiPort": 5080,
   "webPort": 5173,
   "postgresPort": 5432,
-  "startingPoint": "start-here"
+  "startingPoint": "start-here",
+  "buildSessionCount": 4,
+  "coreFinalCheckpoint": "04-after-build-4",
+  "optionalExportCheckpoint": "05-final-solution"
 }

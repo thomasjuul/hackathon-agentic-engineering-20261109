@@ -1,6 +1,6 @@
 # Build session 4: Mark a request Reviewed and check the result
 
-**When:** Day 2, 09:30–11:30. **Time:** 90 minutes core, up to 25 optional, then 5 for reflection.
+**When:** Day 2, 12:30–14:30. **Time:** 85 minutes core, up to 15 optional, then 20 for final verification and showcase preparation.
 
 ## What you are learning
 
@@ -48,6 +48,10 @@ Read Codex's plan and results yourself. If a role, skill, or remote tool is unav
 
 Run `dotnet test Workshop.slnx` from your working-copy root. Run `npm test` and `npm run build` from its `web/` folder. Ask Codex to run these with you and explain any failures. See [setup](00-before-first-build.md) for the full commands. Add checks for the new examples too; old passing tests alone do not prove the new feature works.
 
+
+## Final refinement and showcase preparation
+
+Before optional work, run the complete journey: open an incomplete request, explain missing information, edit/save/reload, mark it Reviewed, show activity, and check that reviewed edits are rejected. Run relevant checks, inspect the diff and record your human acceptance decision. Restart using the same database to confirm saved data remains. Rehearse a short explanation of one concept, one actual check and one decision you made with Codex. Use [final guidance](06-final-solution.md). Adding Status to the export is an [optional extension](optional-export-extension.md), not a completion requirement.
 
 ## If you finish the core early
 

@@ -23,7 +23,7 @@ Ask it: “Where should each part of this feature go? Show the relevant files an
 | implement-react-feature | Use existing components/types/client, manage saving and errors, and display the server result | Build editing and review interactions |
 | change-brownfield | Understand existing callers and preserve behavior outside the agreed change | Add Status without breaking the existing export |
 
-You create the first two implementation skills in session 2 and the React skill in session 3. You create change-brownfield in session 5. The skills belong in the application's `.agents/skills/` folder when you author them. Keep the workshop examples and authoring templates here in `case/docs`.
+You create the first two implementation skills in session 2 and the React skill in session 3. You create change-brownfield in the optional export extension. The skills belong in the application's `.agents/skills/` folder when you author them. Keep the workshop examples and authoring templates here in `case/docs`.
 
 ## A small example of useful guidance
 

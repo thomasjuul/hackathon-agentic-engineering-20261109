@@ -1,6 +1,6 @@
 # Before the first build session
 
-Complete these steps before the hackathon. You will work in `case/start-here` throughout the five build sessions.
+Complete these steps before the hackathon. You will work in `case/start-here` throughout the four build sessions.
 
 ## 1. Install the tools
 

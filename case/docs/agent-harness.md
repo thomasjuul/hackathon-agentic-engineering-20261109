@@ -30,9 +30,9 @@ From `case/start-here`, reach the templates at `../docs/templates/`. Copy a temp
 | 2 | workshop_domain_advisor and workshop_technical_advisor | implement-business-rules, implement-api-feature, use-mcp | Clarify rules and guide the API implementation |
 | 3 | workshop_coordinator | run-bounded-loop, implement-react-feature | Organise limited work and guide the browser implementation |
 | 4 | workshop_verifier and workshop_reviewer | verify-change, review-change, trace-behavior | Check the implemented behavior, code design, and real action outcomes |
-| 5 | No new agent | change-brownfield | Understand existing behavior before changing it |
+| Optional export | No new agent | change-brownfield | Understand existing behavior before changing it |
 
-Creating and trying these definitions is part of the core task. Do not skip it to build more app features. If code work takes too long, ask the facilitator for help so you can still practise the concept.
+Creating and trying the session 2–4 definitions is part of the core task. The export skill is optional. Do not skip it to build more app features. If code work takes too long, ask the facilitator for help so you can still practise the concept.
 
 ## Guidance you could keep in a real project
 
@@ -114,6 +114,6 @@ enabled = false
 
 Keep one main session and at most two specialist agents active in the core path. Optional GitHub uses read-only access and is not required. Use the approved sign-in flow; never put tokens in prompts or commit them to the project.
 
-For reference, the supplied core solutions grow from 2 agents/3 skills to 4/6 after session 2, 5/8 after session 3, 7/11 after session 4, and 7/12 after session 5. These counts describe the reference, not a coding-speed competition.
+For reference, the supplied reference solutions grow from 2 agents/3 skills to 4/6 after session 2, 5/8 after session 3, 7/11 after session 4, and optionally 7/12 after the export extension. These counts describe the reference, not a coding-speed competition.
 
 Further reading: [custom agents](https://learn.chatgpt.com/docs/agent-configuration/subagents), [skills](https://learn.chatgpt.com/docs/build-skills), [MCP configuration](https://learn.chatgpt.com/docs/mcp), and [Microsoft Learn MCP](https://learn.microsoft.com/en-us/training/support/mcp-developer-reference).

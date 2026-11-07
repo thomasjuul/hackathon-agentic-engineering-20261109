@@ -20,13 +20,18 @@ A request starts **New**. When complete, it can become **Reviewed**. Reviewed re
 | 2 | Explain what information is missing | Create your own agents and reusable skills |
 | 3 | Edit and save a request | Check, repair, and stop within agreed limits |
 | 4 | Mark Reviewed and show activity | Check results, follow an action, and review the work |
-| 5 | Add Status to the existing export | Change existing code without breaking earlier behavior |
 
 Use .NET 10/C#, React/TypeScript, PostgreSQL installed on Windows, VS Code or VS Code Insiders, and Codex. Complete [setup before the event](workshop-full/agentic-engineering-workshop/docs/00-before-first-build.md).
 
 ## Get your case material
 
-Clone [the hackathon repository](https://github.com/twoday-ai/hackathon-agentic-engineering-20261109). Open `case/start-here` in VS Code or VS Code Insiders and work there throughout the five sessions. Everything for the case is under `case`: guides, starting code, checks, and all six saved versions in `case/checkpoints`. Use completed checkpoints for reference or recovery and explain any supplied work. The repository also has `demos` for hackathon demonstrations and `slides` for presentation material; these are separate from your case work.
+Clone [the hackathon repository](https://github.com/twoday-ai/hackathon-agentic-engineering-20261109). Open `case/start-here` in VS Code or VS Code Insiders and work there throughout the four sessions. Everything for the case is under `case`: guides, starting code, project tests, and all six saved versions (five core stages plus an optional export reference) in `case/checkpoints`. Use completed checkpoints for reference or recovery and explain any supplied work. The repository also has `demos` for hackathon demonstrations and `slides` for presentation material; these are separate from your case work.
+
+## How the days fit together
+
+Day 1: Build 1 (10:30–11:30), Harness Engineering (12:30–13:30), then Build 2 (13:30–15:00). From Greenfield to Brownfield is a discussion at 15:00–15:45, followed by wrap-up; it needs no separate case or coding task.
+
+Day 2: after follow-up, Loop and Graph Engineering opens at 09:00–09:30, followed by Build 3 (09:30–11:30). Evaluation, Observability, and Governance runs at 12:00–12:30, followed by Build 4 (12:30–14:30): complete review/activity, check and refine the solution, and prepare the showcase. Basic checks, stopping conditions and human acceptance apply throughout. Graph engineering stays high level.
 
 ## How to use the material
 
@@ -50,6 +55,6 @@ If blocked, save your work and ask the facilitator for help or a recovery checkp
 
 ## At the end
 
-Show an incomplete request, correct and save it, mark it Reviewed, show its activity, and export its status. Show one check and explain a decision you made while working with Codex.
+Show an incomplete request, correct and save it, mark it Reviewed, show its activity, and demonstrate that reviewed requests cannot be edited. Exporting Status is optional. Show one check and explain a decision you made while working with Codex.
 
 Be ready to answer: **What did you learn, where did you use it, and what did you check yourself?**

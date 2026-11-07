@@ -14,9 +14,10 @@ Follow [setup](docs/00-before-first-build.md). Use installed PostgreSQL on Windo
 | 2 | [Give Codex reusable guidance](docs/02-build-session-2.md) |
 | 3 | [Correct missing information and save it](docs/03-build-session-3.md) |
 | 4 | [Mark a request Reviewed and check the result](docs/04-build-session-4.md) |
-| 5 | [Add Status to an existing export](docs/05-build-session-5.md) |
 
 Your session guides, challenges, glossary, and help stay in `case/docs`. Your application and its project-specific documentation stay in `case/start-here`. Open the current session card in `case/docs` and give Codex that task explicitly.
+
+See [the agenda](docs/agenda.md) for timings. Day 1 ends with a discussion of existing projects; there is no separate brownfield case. [Export extension](docs/optional-export-extension.md) is optional.
 
 ## 3. Use the help when you need it
 

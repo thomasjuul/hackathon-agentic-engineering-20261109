@@ -4,12 +4,13 @@ Continue in your own working copy throughout the workshop. Optional tasks are ne
 
 | Starting or resuming | Recovery baseline | Verify before continuing |
 | --- | --- | --- |
-| Session 1 | 00-before-first-build | Health screen and database connection |
+| Session 1 | 00-before-first-build | Request list, selection and database-backed details |
 | Session 2 | 01-after-build-1 | Two different requests show the correct details |
 | Session 3 | 02-after-build-2 | Readiness identifies missing information, including whitespace |
 | Session 4 | 03-after-build-3 | Edit, save, recheck, and reload |
-| Session 5 | 04-after-build-4 | Complete requests can be reviewed; incomplete review and reviewed edits are rejected |
-| Final rehearsal | 05-final-solution | Full journey, activity, CSV statuses, and restart |
+| Optional export extension | 04-after-build-4 | Complete requests can be reviewed; incomplete review and reviewed edits are rejected |
+| Core final rehearsal | 04-after-build-4 | Full request-to-review journey, activity, checks and restart |
+| Optional export reference | 05-final-solution | Adds Status to the export; not required for core completion |
 
 Your case material includes all six checkpoints in `case/checkpoints`. They are supplied reference/recovery versions. Ask the facilitator which one fits your current session; use baselines verified in the pre-event rehearsal.
 
@@ -30,4 +31,4 @@ Use a new suffix for each fresh rehearsal. In the API terminal, change only the 
 
 This training preparation is outside the application workflow; do not add a reopen feature to the core exercise.
 
-Demonstrate Fjordby with its missing budget, correct and save it, reload, mark it Reviewed, and show its activity. Keep another request New. Open http://127.0.0.1:5080/api/requests/export and confirm both statuses in the final column. Show a passing check, the traced graph, the Codex execution record, and one improvement in how you worked.
+Demonstrate Fjordby with its missing budget, correct and save it, reload, mark it Reviewed, and show its activity. Keep another request New. If you completed the optional export extension, open http://127.0.0.1:5080/api/requests/export and confirm both statuses in the final column. Show a passing check, the traced graph, the Codex execution record, and one improvement in how you worked.
