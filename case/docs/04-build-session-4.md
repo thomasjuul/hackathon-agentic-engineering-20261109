@@ -1,69 +1,61 @@
-# Build session 4: Mark complete requests reviewed and see an activity entry
+# Build session 4: Mark a request Reviewed and check the result
 
-**Learning:** Evaluation, observability, and governance. **When:** 09:30-11:30 on day 2.
+**When:** Day 2, 12:30–14:30. **Time:** 85 minutes core, up to 15 optional, then 20 for final verification and showcase preparation.
 
-The business case is still four fields, three rules, and two statuses. Read docs/rules.md.
+## What you are learning
 
-Use the prepared [agent harness](agent-harness.md) for the role definitions, skill catalogue, MCP tools, and setup.
+**Evaluation, observability, and governance.** Evaluation asks “Did it work as expected?” Observability asks “Can we see what happened?” Governance asks “What may the agent do, and who accepts the result?” You will practise all three on one feature.
 
-## Learning outcome
+## What the app should do
 
-Explain evaluation, observability, and governance using one result from your run. Show how evidence informed your human review decision.
+A complete request can become Reviewed. The app records that action. An incomplete request cannot be reviewed, and a Reviewed request cannot be edited.
 
-## Core task
 
-Before tracing review, create trace-behavior yourself. Specify inputs, response/correlation/log/activity steps, evidence limits, and escalation. Invoke it through the verifier and improve it after feedback.
+## Work through the core task
 
-1. Write a small evaluation table: complete request succeeds; missing name, title, or budget blocks; reviewed request is read-only.
-2. Implement POST /api/requests/{id}/review. Recheck readiness on the server, set Reviewed, increment Version, and call ActivityRecorder.Reviewed.
-3. Save status and activity in the same SaveChanges call. Repeated review should return the current request without duplicate activity.
-4. Add the Mark reviewed button and activity list to App.tsx. The browser disables review while incomplete; the server must also reject a direct API call.
-5. Use the existing correlation header and structured server log to follow one action. Do not log raw request contents.
-6. Ask Codex to fix one failing evaluation example within the bounded loop. If no failure occurs, inspect a facilitator-supplied failed run and label that evidence clearly. Run checks and inspect its actual diff before accepting it.
-7. Complete docs/evidence.md: record the goal, context, allowed actions, checks run, failures, repair attempts, elapsed time, stop reason, and human decision. Evaluate Codex context use, scope, reporting accuracy, and stopping behavior separately from application correctness. Application logs/activity observe the app; this execution record observes the development agent.
+Start with the examples below and decide what each result should be. Create `workshop_verifier` to run application checks and `workshop_reviewer` to inspect the changes independently. Create `verify-change`, `review-change`, and `trace-behavior` to guide checking, reviewing, and following an action through its response, log, and saved activity. Use the same authoring approach you practised in session 2. A correlation ID is the reference number connecting the response and log. Try the skill through `workshop_verifier` and improve it using what you observe.
 
-## Required agent, skill, and MCP practice
+Use your domain advisor to clarify the review transition and your technical advisor to plan saving status and activity together. Have the implementer use your business-rule, API, and React skills to add Mark reviewed and the activity list. The server must check the rules even if someone bypasses the browser button. Save the Reviewed status and its activity together. Reviewing the same request again must not create a second activity entry.
 
-1. Ask workshop_verifier to use $trace-behavior/$verify-change for actual review outcomes, correlation IDs, and activity. Use browser/API calls, tests, and the existing server log.
-2. Use Microsoft Learn MCP to research the transaction/concurrency behavior relevant to atomic review/activity persistence. Use OpenAI Docs MCP for a question about inherited permissions or human review boundaries. Keep documentation claims separate from runtime evidence.
-3. Delegate diff/evidence review to workshop_reviewer. Record findings, source URLs, actual results, stop reason, and the human decision in docs/evidence.md.
+Try a successful review and an incomplete review attempt. Follow a real response correlation ID to its message in the API terminal. A rejected review must not create a “Marked reviewed” activity. Use remote Microsoft Learn to clarify saving related changes together, and remote OpenAI Docs for a question about agent permissions or human review. Keep request descriptions and credentials out of logs.
 
-Keep this within the existing core time. Report unavailable remote calls as blocked and ask the facilitator for help; never invent a lookup result.
+If an example fails, use the bounded loop to investigate and repair it. If nothing fails in your run, ask the facilitator for a failed example to inspect and label it as supplied. Have your verifier report the actual results and your reviewer inspect the changes. Check both whether the app works and whether Codex used the right information, stayed within the task, reported honestly, and stopped as agreed. You decide whether to accept the change, request more work, or defer it.
 
-## Acceptance examples
+## Try this with Codex
 
-- Incomplete requests cannot be reviewed, including through a direct API request.
-- Empty or whitespace-only names and titles block review.
-- Reviewed requests stay reviewed after reload; both browser editing and direct API updates are rejected.
-- A human assesses the Codex execution record before accepting the change.
-- One review action produces one persisted activity record with a correlation ID.
+Start with this instruction and adapt it to your work:
 
-For task help, adaptable prompts, and troubleshooting, use the shared [go-to guide](go-to-guide.md).
+```text
+We are doing session 4. Help me create workshop_verifier and workshop_reviewer with verify-change, review-change, and trace-behavior. Use our domain/technical advisors and implementation skills to add Mark reviewed and its activity using the supplied helpers. Check the rules on the server. Verify incomplete review, repeated review, saved status, and editing after review. Show one real response/log/activity trace. Have the verifier and reviewer report separately. Explain the results plainly before I decide whether to accept the change.
+```
 
-## Suggested Codex task
+Then, when ready:
 
-> Implement the simple review action and activity using the supplied helpers. Enforce the rules on the server and verify the evaluation examples. Show actual check results and a diff for human review; the application button is not a substitute for reviewing code changes.
+```text
+Now assess how Codex worked, separately from whether the app passed its checks. Did it use the agreed context, stay within scope, report failures, and stop at the agreed point? Add a short record of actual checks, repairs, elapsed time, limitations, and my decision.
+```
 
-## Optional tasks
+Read Codex's plan and results yourself. If a role, skill, or remote tool is unavailable, record the problem and ask the facilitator. An unavailable tool is not a successful tool call.
 
-### Optional 1: Review diagnostics panel
+## How you know it worked
 
-Add a development-only panel for a review attempt: action, outcome, time, and the existing correlation ID.
+- A complete request becomes Reviewed and remains Reviewed after reload.
+- A missing name, title, or budget blocks review. Spaces-only names/titles also block it.
+- A direct API review call cannot bypass the rules.
+- Repeating review adds no duplicate activity.
+- Reviewed requests cannot be edited in the UI or through the API.
+- One real action can be followed through its response, log, and saved activity when successful.
 
-**Deliverable:** A working diagnostics panel and an explained success/rejection trace.
+Run `dotnet test Workshop.slnx` from your working-copy root. Run `npm test` and `npm run build` from its `web/` folder. Ask Codex to run these with you and explain any failures. See [setup](00-before-first-build.md) for the full commands. Add checks for the new examples too; old passing tests alone do not prove the new feature works.
 
-### Optional 2: Local failure-investigation workbench
 
-Starting from the session-4 core, build a local script/fixture-based workbench for three scenarios: incomplete review rejection, repeated review with no duplicate activity, and an edited request remaining read-only after review.
+## Final refinement and showcase preparation
 
-**Deliverable:** An executable local scenario workbench and investigation report demonstrating a diagnosed and repaired defect.
+Before optional work, run the complete journey: open an incomplete request, explain missing information, edit/save/reload, mark it Reviewed, show activity, and check that reviewed edits are rejected. Run relevant checks, inspect the diff and record your human acceptance decision. Restart using the same database to confirm saved data remains. Rehearse a short explanation of one concept, one actual check and one decision you made with Codex. Use [final guidance](06-final-solution.md). Adding Status to the export is an [optional extension](optional-export-extension.md), not a completion requirement.
 
-Optional 2 is deliberately more difficult and starts from this session's core; Optional 1 is not required. See the [steps and Codex prompts](optional-challenges.md#session-4). Choose a working slice and stop for the next topic; neither level is needed later.
+## If you finish the core early
 
-## Reflection and evidence
+- **Optional 1 — Review diagnostics panel:** the more approachable challenge.
+- **Optional 2 — Local failure-investigation workbench:** a harder challenge with more design work.
 
-Run `powershell -File .\Verify.ps1` from your working copy. Existing green checks alone do not prove the new feature works. Write and run checks for your acceptance examples.
-
-The instructor can supply the session-4 acceptance pack, or a fresh recovery copy of `04-after-build-4`. Preserve your own work first.
-
-At the session close, explain the concept in your own words, how you used it with Codex, and one thing you would improve. Keep the record short. If implementation blocks progress, use facilitator support or a clearly identified recovery checkpoint so you can practise the next concept. Optional features never determine learning success.
+Both involve building a useful feature. Choose either; Optional 2 does not require Optional 1. See [the challenge steps and prompts](optional-challenges.md#session-4). Save your working core first. Completing optional work is never required for a later session or the final goal.

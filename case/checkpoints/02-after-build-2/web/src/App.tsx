@@ -31,12 +31,12 @@ export default function App() {
   }
 
   return <main className="workspace"><header className="page-header"><div>
-    <p className="eyebrow">AGENTIC ENGINEERING · HACKATHON</p><h1>Request Workbench</h1>
+    <p className="eyebrow">MUNICIPAL REQUESTS</p><h1>Request Workbench</h1>
     <p className="muted">See what is missing. Keep the work moving.</p></div></header>
     {error && <p role="alert" className="error">{error}</p>}
     <div className="layout"><aside className="card inbox" aria-label="Requests"><h2>Requests</h2>
       {loading && <p role="status">Loading requests…</p>}
-      {!loading && requests.length === 0 && <p>No requests yet.</p>}
+      {!loading && !error && requests.length === 0 && <p>No requests yet.</p>}
       <ul>{requests.map(row => <li key={row.id}><button className={`request-item ${selectedId === row.id ? 'selected' : ''}`}
         disabled={busy} aria-pressed={selectedId === row.id} onClick={() => setSelectedId(row.id)}>
         <strong>{row.municipality || 'Municipality missing'}</strong>
@@ -61,6 +61,6 @@ export default function App() {
                       {/* TODO BUILD 4: mark reviewed and show its activity entry. */}
 
       </>}
-    </article></div><footer>Fictional workshop data · From Request to Review</footer>
+    </article></div><footer>Request Workbench</footer>
   </main>;
 }

@@ -1,19 +1,18 @@
-# Workshop repository guidance
-Read TASK.md for the current session and docs/rules.md for the three business rules.
-Keep changes within this checkpoint. Do not inspect sibling answer checkpoints unless asked.
-The application uses C#/.NET 10, React/TypeScript, and PostgreSQL. Keep existing components.
-Server: api/. Browser: web/src/. Tests: tests/ and web/src/*.test.tsx.
-Verification from this checkpoint: powershell -File .\Verify.ps1
-Start from this checkpoint: powershell -File .\Start.ps1
-Do not add extra fields, business rules, external services, or authentication.
+# Project guidance
 
-Business rules belong in api/Readiness.cs; the browser displays the server's result.
-Use $verify-change after an implementation change and report actual results.
-Preserve independent acceptance behavior; do not weaken tests to hide failures.
-Finish with the changed behavior, check results, limitations, and a human review point.
-When delegated a bounded loop, stop after its agreed iteration or time budget.
+Implement the task provided in the current request. Read `docs/rules.md` and `docs/api-contract.md` before proposing changes. Ask for clarification when the requested behavior is unclear.
 
-## Workshop agent harness progression
-Available agents: workshop_analyst, workshop_coordinator, workshop_implementer, workshop_reviewer, workshop_verifier.
-Available skills: frame-task, implement-slice, map-context, record-handoff, review-change, run-bounded-loop, trace-behavior, use-mcp, verify-change.
-Use only definitions that actually exist. Session 2 creates verifier/reviewer agents and verify-change/review-change/use-mcp skills; session 3 adds coordinator and loop/handoff skills; sessions 4-5 add tracing and brownfield skills. The starter is deliberately incomplete. Keep one implementation owner. Read rules/contracts directly. Use only remote Microsoft Learn/OpenAI Docs MCP for external technical questions; optional remote GitHub needs approved access. Write evidence in docs/evidence.md. Do not launch MCP servers locally. Human review remains required.
+The application uses .NET 10/C#, React/TypeScript, and PostgreSQL. Server code is in `api/`, browser code in `web/src/`, and tests in `tests/` and `web/src/`. Use the existing components and API types. Keep changes within the agreed project scope; do not add business fields, services, or authentication without a request.
+
+Use one code writer at a time. Run `dotnet test Workshop.slnx` at the project root, then `npm test` and `npm run build` in `web/`. Report actual outcomes and anything not run. Record useful development decisions and check results in `docs/evidence.md`. A human reviews the changes before accepting them.
+
+Available custom agents: workshop_analyst, workshop_coordinator, workshop_domain_advisor, workshop_implementer, workshop_reviewer, workshop_technical_advisor, workshop_verifier.
+Available skills: frame-task, implement-api-feature, implement-business-rules, implement-react-feature, implement-slice, map-context, review-change, run-bounded-loop, trace-behavior, use-mcp, verify-change.
+
+Use only definitions that exist. Microsoft Learn and OpenAI Docs MCP provide remote reference tools; optional remote GitHub requires approved access. Read local business rules directly. Documentation is not runtime evidence. Do not launch an MCP server locally or expose credentials. Role instructions do not grant extra permissions.
+
+Use the domain advisor to clarify business decisions and the technical advisor to plan changes using existing code. The implementer applies only the implementation skills listed as available here after the plan is agreed. For browser work before a React skill exists, follow the existing components and typed API client. These roles guide implementation, not only verification.
+
+## Product UI
+
+Treat Request Workbench as a real business application. User-facing UI must never mention the hackathon, workshop, training case, exercises, tasks, build sessions, checkpoints, demos, participants, Codex, or implementation instructions. This applies to headings, page titles, labels, help text, empty/loading/error states, footers, accessibility text, and activity data. Use business language only. Keep all learning instructions in the accompanying documentation, outside the application UI.

@@ -1,280 +1,247 @@
-# Optional 1 and Optional 2
+# Optional challenges
 
-Each session offers two substantial implementation challenges. Optional 1 is the more approachable choice. Optional 2 is deliberately difficult and requires more design, coordination, or investigation. Both practise the session concept with Codex; neither is just a list of extra validation checks.
+Finish the core task first. Then choose **Optional 1** for a more approachable feature, or **Optional 2** for a deliberately harder one. You can choose either: Optional 2 never requires Optional 1, and later core sessions do not require any optional work.
 
-Complete the core first, then choose either level. Each level starts from that session's core baseline: Optional 2 does not require Optional 1 or optional work from earlier sessions. If you already completed Optional 1, reuse suitable parts after inspecting them. Keep a saved core baseline and isolate unfinished work before the next core session.
+These are real building tasks, so a full challenge may take longer than the available optional time. The windows are 10, 20, 10, 25, and 20 minutes across sessions 1–5. Start with the suggested first step, stop for the next topic, and continue later if you want. Effort estimates are rough guides.
 
-The optional windows remain 10, 20, 10, 25, and 20 minutes. Effort estimates below are exploratory targets, not promises. For a short window, choose one working slice; full completion can continue after the workshop. Preserve reflection and the next topic. No optional task is required for the final goal.
+Save a working core version before starting. Keep unfinished optional changes separate so they do not block the next session. Keep the same four fields, three rules, two statuses, and application stack.
 
-Use the existing stack and the same four fields, three rules, and two statuses. No external service or model API key is needed. Ask the [go-to guide](go-to-guide.md) for task scaffolds and troubleshooting.
+## How to work with Codex
+
+Ask for a plan and relevant files first. Use only agents/skills already available in your session; create any extra definition the challenge asks for. Give one implementer responsibility for code changes at a time. Have someone else check/review the result; before custom verifier/reviewer agents exist, the main Codex session can help with checks and you review the work.
+
+Use remote Microsoft Learn or OpenAI Docs to answer a relevant technical question and explain how the answer affects the design. Record the real tool call and source URL in `docs/evidence.md`. Use the browser/API/tests to check the app. Optional remote GitHub access is never needed to finish a challenge.
+
+Ask afterwards: “What did the session concept help us do, what did Codex do, and what decision or check stayed with us?” See [words and concepts](words-and-concepts.md) for unfamiliar terms.
 
 ## Session 1
 
 ### Optional 1: Searchable request workspace
 
-Use only the roles and skills created by this session, as shown in the [agent harness progression](agent-harness.md). Give one custom implementer ownership, obtain separate verification/review from the main Codex session, using the new custom verifier/reviewer only after session 2 has created them, and use remote Microsoft Learn/OpenAI Docs MCP to resolve a relevant design/framework question. Record its source and effect in docs/evidence.md; inspect the feature with normal browser/API tools.
+**Level:** More approachable. **Full challenge estimate:** 20–30 minutes. **Start from:** this session’s completed core.
 
-**Difficulty:** Approachable. **Estimated effort:** 15-25 minutes.
+Let the caseworker find requests by municipality or project title.
 
-**Starting point:** This session's completed core; no optional prerequisite.
+**What you do:**
 
-**Work to do:**
+Add a search box that works with the requests already loaded. Ignore upper/lowercase differences. Then show how many requests match. If none match, show a useful message instead of a blank area.
 
-1. Add case-insensitive municipality/title search, a result count, and an empty state using loaded data.
-2. Define what happens to selection when filtering removes the selected request, and keep clearing search predictable.
-3. Use Codex to implement and demonstrate filtering, selection, and clearing as a coherent feature.
+Agree what happens to the selected request when search hides it. Keep the displayed details consistent with that choice. Then give Codex a short context note explaining the screen, relevant files, examples, and limits. Use that note to guide the change.
 
-**Deliverable:** A searchable list/detail workspace and a short context brief.
+**Finished result:** A search box, result count, clear no-results message, and consistent details view, plus your context note.
 
-**Suggested Codex instruction:**
+**A useful first step:** Add search and a result count first; then decide how hidden selections behave.
+
+**Try this with Codex:**
 
 ```text
-Implement a searchable request list using the existing loaded data. Search municipality and title case-insensitively, show result count/empty state, and define selection after filtering. Inspect the existing types and component first; keep the unfiltered core journey working.
+Add municipality/title search to session-1 core using loaded data. Ignore case, show the count and a useful no-results message, and define how selection behaves when filtered out. First write a short context note and plan. Keep this separate from later core features.
 ```
-
-**First slice:** Agree a small, usable part of this feature, implement it, and record what remains. Stop at the session boundary or agreed execution limit.
-
-**Explain afterwards:** Which session concept shaped your approach, what did you delegate to Codex, and what decision or verification remained yours?
 
 ### Optional 2: URL-driven workspace with browser navigation
 
-Have the main Codex session split independent context/risk analysis between currently available custom roles, collect evidence, and sequence one writer. If this optional task asks for another role, create it first; do not assume a future coordinator exists. Specify each handoff and stop rule. Use remote Microsoft Learn/OpenAI Docs MCP for external technical evidence, then record actual calls, source URLs, and findings. Use normal browser tools for exploration. Optional read-only remote GitHub can inspect an approved repository/PR after authentication; it is never a prerequisite.
+**Level:** Difficult. **Full challenge estimate:** 35–60 minutes. **Start from:** this session’s completed core.
 
-**Difficulty:** Difficult. **Estimated effort:** 35-60 minutes.
+Make a link that opens the same search and selected request in another browser tab.
 
-**Starting point:** This session's completed core; no optional prerequisite.
+**What you do:**
 
-**Work to do:**
+Store the search text and selected request in the URL. Define what to show for an unknown ID, invalid query value, or selected request hidden by search. Then restore the screen when opening a link or reloading the page. Include search itself; do not assume Optional 1 exists.
 
-1. Starting from the session-1 core, implement search and selected-request state in the URL. Specify how unknown IDs, invalid query values, and filtered-out selections behave.
-2. Restore the workspace on reload and direct link opening. Support browser Back/Forward without navigation loops or stale details.
-3. Ask Codex to separate parsing/state synchronisation from rendering. Demonstrate a link opened in a new tab, reload, and Back/Forward.
+Make browser Back and Forward update the screen correctly, without repeated navigation or old details appearing. Then keep URL parsing and screen updates understandable. Demonstrate a copied link, reload, Back, and Forward.
 
-**Deliverable:** A shareable workspace whose URL and screen remain consistent across reload and browser navigation.
+**Finished result:** A shareable list/detail screen whose URL and displayed content stay in agreement.
 
-**Suggested Codex instruction:**
+**A useful first step:** Put the selected request in the URL and restore it on reload; add search and navigation handling next.
+
+**Try this with Codex:**
 
 ```text
-Starting from session-1 core only, build a URL-driven search/detail workspace. Define query parsing and selection rules before editing. Implement direct links, reload restoration, and Back/Forward without synchronisation loops. Include the search capability needed by this task; do not assume Optional 1 exists.
+Starting from session-1 core only, put search and selected-request state in the URL. Define invalid/unknown/filtered-selection behavior first. Support copied links, reload, and Back/Forward. Explain how you avoid repeated updates and stale details. Show a small first step before implementing.
 ```
-
-**First slice:** Agree a small, usable part of this feature, implement it, and record what remains. Stop at the session boundary or agreed execution limit.
-
-**Explain afterwards:** Which session concept shaped your approach, what did you delegate to Codex, and what decision or verification remained yours?
 
 ## Session 2
 
 ### Optional 1: Documentation specialist and batch readiness
 
-Use only the roles and skills created by this session, as shown in the [agent harness progression](agent-harness.md). Give one custom implementer ownership, obtain separate verification/review from the main Codex session, using the new custom verifier/reviewer only after session 2 has created them, and use remote Microsoft Learn/OpenAI Docs MCP to resolve a relevant design/framework question. Record its source and effect in docs/evidence.md; inspect the feature with normal browser/API tools.
+**Level:** More approachable. **Full challenge estimate:** 20–35 minutes. **Start from:** this session’s completed core.
 
-**Difficulty:** Approachable. **Estimated effort:** 20-35 minutes.
+Add a Check all view that checks several requests and shows the result for each.
 
-**Starting point:** This session's completed core; no optional prerequisite.
+**What you do:**
 
-**Work to do:**
+Create workshop_docs and a research-docs skill. Their job is to find useful official sources, explain whether they apply, and record the source and decision. Then use the new agent/skill for a real remote lookup, then add Check all using the existing server endpoints. The server still decides readiness.
 
-1. From session-2 core, create workshop_docs and a research-docs skill with source/applicability/evidence guidance. Exercise a remote lookup, then implement Check all through existing endpoints.
-2. Show progress and per-request failures while retaining successful results; keep server rules authoritative.
-3. Give Codex a reusable task brief using existing instructions and verification guidance, then use it for retrying one failed request.
+Show progress. If one check fails, keep the successful results visible and show which request failed. Then add a way to retry a failed check. Write a reusable task brief and use it to guide that change.
 
-**Deliverable:** A batch readiness UI and reusable task brief, with successful and failed results visible.
+**Finished result:** A working Check all view, visible progress/results/errors, retry, and reusable research/task guidance.
 
-**Suggested Codex instruction:**
+**A useful first step:** Create and try the documentation agent/skill, then show results for a few requests.
+
+**Try this with Codex:**
 
 ```text
-Help me create workshop_docs and research-docs, exercise a remote source lookup, then use the new harness to add Check all through existing endpoints. Display progress and per-request results, retain successes on partial failure, and support retrying a failed request. Keep rules on the server and show how you used the reusable guidance.
+Help me create workshop_docs and research-docs and use them for a relevant remote lookup. Add Check all through our existing endpoints. Show progress and results per request, retain successes if one fails, and allow retry. Keep the rules on the server and explain how the reusable guidance helped.
 ```
-
-**First slice:** Agree a small, usable part of this feature, implement it, and record what remains. Stop at the session boundary or agreed execution limit.
-
-**Explain afterwards:** Which session concept shaped your approach, what did you delegate to Codex, and what decision or verification remained yours?
 
 ### Optional 2: Advanced harness and cancellable batch runner
 
-Have the main Codex session split independent context/risk analysis between currently available custom roles, collect evidence, and sequence one writer. If this optional task asks for another role, create it first; do not assume a future coordinator exists. Specify each handoff and stop rule. Use remote Microsoft Learn/OpenAI Docs MCP for external technical evidence, then record actual calls, source URLs, and findings. Use normal browser tools for exploration. Optional read-only remote GitHub can inspect an approved repository/PR after authentication; it is never a prerequisite.
+**Level:** Difficult. **Full challenge estimate:** 45–75 minutes. **Start from:** this session’s completed core.
 
-**Difficulty:** Difficult. **Estimated effort:** 45-75 minutes.
+Build a Check all process that can be cancelled and restarted safely.
 
-**Starting point:** This session's completed core; no optional prerequisite.
+**What you do:**
 
-**Work to do:**
+Create a documentation specialist and plan-change skill. Write who edits which files, what each person/agent hands over, how disagreements are resolved, and when to stop. Include the research guidance needed without Optional 1. Then build the results/progress view and allow at most three checks to run at once. Add cancellation and retry for failed requests only.
 
-1. From session-2 core, create a documentation specialist and plan-change skill with file ownership, handoffs, disagreement handling, and stopping rules. Include needed research guidance without assuming Optional 1. Use it to build batch checks with at most three concurrent requests.
-2. Add cancellation, retry-failed-only, and run identifiers so late responses from an old run cannot overwrite a newer run. A cancelled browser request does not prove server work stopped.
-3. Use delayed/failing responses in a development fixture to demonstrate the concurrency cap, partial failure, cancellation, and a safe restart. Explain how the harness guided Codex across bounded tasks.
+Give each run an identity so a late reply from an earlier run cannot replace newer results. Cancelling a browser call does not prove the server stopped working. Then use controlled delayed and failed responses to demonstrate the three-check limit, partial failure, cancellation, and a safe restart.
 
-**Deliverable:** A robust batch execution component, progress UI, and evidence of cancellation and stale-result handling.
+**Finished result:** A cancellable batch runner with progress, partial results, retry, and protection from old responses, built using your new planning guidance.
 
-**Suggested Codex instruction:**
+**A useful first step:** Design the work plan and run identity, then build a three-at-a-time checking queue.
+
+**Try this with Codex:**
 
 ```text
-Starting from session-2 core, help me create a documentation specialist and plan-change skill with handoffs/conflict handling, then use them to build a batch readiness runner with at most three in-flight checks, cancellation, retry-failed-only, and stale-run protection. First explain the execution/state model and relevant files. Include the overview UI; Optional 1 is not assumed. Work in bounded slices and demonstrate delayed and failed responses.
+From session-2 core, create a documentation specialist and plan-change skill with file ownership, handoffs, disagreement handling, and stopping rules. Use them to build Check all with at most three active checks, cancellation, retry-failed-only, and protection from earlier run responses. Include the screen yourself. Demonstrate controlled delays and failures in small agreed steps.
 ```
-
-**First slice:** Agree a small, usable part of this feature, implement it, and record what remains. Stop at the session boundary or agreed execution limit.
-
-**Explain afterwards:** Which session concept shaped your approach, what did you delegate to Codex, and what decision or verification remained yours?
 
 ## Session 3
 
 ### Optional 1: Unsaved-change protection
 
-Use only the roles and skills created by this session, as shown in the [agent harness progression](agent-harness.md). Give one custom implementer ownership, obtain separate verification/review from the main Codex session, using the new custom verifier/reviewer only after session 2 has created them, and use remote Microsoft Learn/OpenAI Docs MCP to resolve a relevant design/framework question. Record its source and effect in docs/evidence.md; inspect the feature with normal browser/API tools.
+**Level:** More approachable. **Full challenge estimate:** 15–25 minutes. **Start from:** this session’s completed core.
 
-**Difficulty:** Approachable. **Estimated effort:** 15-25 minutes.
+Help the caseworker avoid losing changes they have not saved.
 
-**Starting point:** This session's completed core; no optional prerequisite.
+**What you do:**
 
-**Work to do:**
+Show when the draft differs from the saved information. “Dirty” is the common technical word for this state. Then add Cancel to restore the saved values. Before switching to another request, offer Stay here or Discard changes when there is an unsaved draft.
 
-1. Show when a draft differs from saved values and provide Cancel to restore those values.
-2. When switching requests with an unsaved draft, offer an explicit discard-or-stay choice. Retain the draft if saving fails.
-3. Delegate a bounded Codex loop and trace its actual plan/check/repair/review route separately from the UI edit-state diagram.
+Keep the draft if saving fails. Use the bounded development loop and record the route Codex actually took.
 
-**Deliverable:** A usable dirty/Cancel/navigation workflow and a traced Codex run.
+**Finished result:** An unsaved-changes indicator, Cancel, and a clear stay/discard choice before changing requests.
 
-**Suggested Codex instruction:**
+**A useful first step:** Add the unsaved indicator and Cancel, then protect request switching.
+
+**Try this with Codex:**
 
 ```text
-Improve session-3 editing with a dirty indicator, Cancel, and a discard-or-stay decision before changing requests. Keep drafts after failed saves. Follow the supplied development graph and stop after two repairs or 20 minutes, whichever comes first. Show the application states separately.
+Improve session-3 editing with an unsaved-changes indicator, Cancel, and a stay/discard choice before selecting another request. Keep drafts after a failed save. Use our development graph and stop after two repairs or 20 minutes, whichever comes first. Show the app edit states separately from Codex’s work steps.
 ```
-
-**First slice:** Agree a small, usable part of this feature, implement it, and record what remains. Stop at the session boundary or agreed execution limit.
-
-**Explain afterwards:** Which session concept shaped your approach, what did you delegate to Codex, and what decision or verification remained yours?
 
 ### Optional 2: Race-safe editing across requests
 
-Have the main Codex session split independent context/risk analysis between currently available custom roles, collect evidence, and sequence one writer. If this optional task asks for another role, create it first; do not assume a future coordinator exists. Specify each handoff and stop rule. Use remote Microsoft Learn/OpenAI Docs MCP for external technical evidence, then record actual calls, source URLs, and findings. Use normal browser tools for exploration. Optional read-only remote GitHub can inspect an approved repository/PR after authentication; it is never a prerequisite.
+**Level:** Difficult. **Full challenge estimate:** 40–70 minutes. **Start from:** this session’s completed core.
 
-**Difficulty:** Difficult. **Estimated effort:** 40-70 minutes.
+Keep the right draft and details visible even when server replies arrive late.
 
-**Starting point:** This session's completed core; no optional prerequisite.
+**What you do:**
 
-**Work to do:**
+Describe the editing states for each request: loading, changed but unsaved, saving, failed, and saved. Include the draft protection needed without assuming Optional 1. Then allow only one save at a time for the same request. Match replies to the request and operation they belong to. An old reply must not overwrite a newer selection or erase a newer draft.
 
-1. Starting from the session-3 core, define a per-request edit state machine including loading, dirty, saving, failed, and saved. Include the necessary draft protection without assuming Optional 1.
-2. Serialize saves for a given request. Correlate responses with request/run identity so an old response cannot replace a newer selection or erase a newer draft. Do not imply a browser-only guard solves concurrent writes from other clients.
-3. Use a controlled delayed response/failure fixture: save request A, move to B, then release A's response; demonstrate B remains correct and errors preserve the appropriate draft. Split work into separately reviewed bounded runs.
+Create a controlled test: save request A, move to B, then allow A’s delayed reply to arrive. B must remain correct, and errors must preserve the right draft. Then split the work into small separately reviewed runs. Explain that browser safeguards alone do not solve simultaneous updates from different clients.
 
-**Deliverable:** A state-based editing implementation with controlled race demonstrations and documented concurrency limits.
+**Finished result:** An editing implementation organised around explicit states, with a repeatable delayed-response demonstration and stated limits.
 
-**Suggested Codex instruction:**
+**A useful first step:** Draw the edit states and demonstrate the A-save/B-selection problem, then add response matching.
+
+**Try this with Codex:**
 
 ```text
-Starting from session-3 core, design and implement race-safe editing across requests. Include dirty-state protection, serialize same-request saves, and prevent late responses overwriting another selection or a newer draft. First show the state model. Use controlled delays to demonstrate A-save/B-selection ordering. Agree separate bounded runs for successive slices.
+From session-3 core, design editing that handles late replies safely. Include unsaved-change protection, one save at a time per request, and matching responses to the correct request/operation. First explain the states. Demonstrate delayed A-save after selecting B. Work in separately agreed bounded runs and state the limits for other clients.
 ```
-
-**First slice:** Agree a small, usable part of this feature, implement it, and record what remains. Stop at the session boundary or agreed execution limit.
-
-**Explain afterwards:** Which session concept shaped your approach, what did you delegate to Codex, and what decision or verification remained yours?
 
 ## Session 4
 
 ### Optional 1: Review diagnostics panel
 
-Use only the roles and skills created by this session, as shown in the [agent harness progression](agent-harness.md). Give one custom implementer ownership, obtain separate verification/review from the main Codex session, using the new custom verifier/reviewer only after session 2 has created them, and use remote Microsoft Learn/OpenAI Docs MCP to resolve a relevant design/framework question. Record its source and effect in docs/evidence.md; inspect the feature with normal browser/API tools.
+**Level:** More approachable. **Full challenge estimate:** 20–35 minutes. **Start from:** this session’s completed core.
 
-**Difficulty:** Approachable. **Estimated effort:** 20-35 minutes.
+Add a small development-only panel that helps explain a review attempt.
 
-**Starting point:** This session's completed core; no optional prerequisite.
+**What you do:**
 
-**Work to do:**
+Show the action, result, time, and existing correlation ID: the reference number connecting a response and server log. Then for a successful review, connect the result to its saved activity. For a rejected review, connect the result to its log message without inventing a saved activity.
 
-1. Add a development-only panel for a review attempt: action, outcome, time, and the existing correlation ID.
-2. Connect a success to persisted activity and a rejection to its server log; do not fabricate activity for rejected actions.
-3. Demonstrate a complete request and an incomplete direct-API review attempt. Ask a teammate to inspect the evidence before accepting the change.
+Demonstrate a successful complete request and an incomplete review sent directly to the API. Have a teammate inspect the result before accepting the change.
 
-**Deliverable:** A working diagnostics panel and an explained success/rejection trace.
+**Finished result:** A working diagnostics panel showing real success and rejection information.
 
-**Suggested Codex instruction:**
+**A useful first step:** Show the real result and correlation ID for one review attempt.
+
+**Try this with Codex:**
 
 ```text
-Build a development-only review diagnostics panel using our existing correlation header/logging. Show action, outcome, time, and correlation ID. Trace one success to activity and one rejection to the log. Keep raw descriptions and credentials out of logs; do not invent rejected-action activity.
+Build a development-only review diagnostics panel using our existing correlation header and logging. Show action, outcome, time, and correlation ID. Trace a success to activity and a rejection to its log. Keep descriptions and credentials out of logs; do not add fake activity for rejected actions.
 ```
-
-**First slice:** Agree a small, usable part of this feature, implement it, and record what remains. Stop at the session boundary or agreed execution limit.
-
-**Explain afterwards:** Which session concept shaped your approach, what did you delegate to Codex, and what decision or verification remained yours?
 
 ### Optional 2: Local failure-investigation workbench
 
-Have the main Codex session split independent context/risk analysis between currently available custom roles, collect evidence, and sequence one writer. If this optional task asks for another role, create it first; do not assume a future coordinator exists. Specify each handoff and stop rule. Use remote Microsoft Learn/OpenAI Docs MCP for external technical evidence, then record actual calls, source URLs, and findings. Use normal browser tools for exploration. Optional read-only remote GitHub can inspect an approved repository/PR after authentication; it is never a prerequisite.
+**Level:** Difficult. **Full challenge estimate:** 50–90 minutes. **Start from:** this session’s completed core.
 
-**Difficulty:** Difficult. **Estimated effort:** 50-90 minutes.
+Build a repeatable way to investigate review failures and produce a readable report.
 
-**Starting point:** This session's completed core; no optional prerequisite.
+**What you do:**
 
-**Work to do:**
+Use a separate disposable database or controlled test setup. Cover incomplete review rejection, repeating review without duplicate activity, and rejecting edits after review. Then run the scenarios and capture actual API results, correlation IDs, and relevant logs/activity. Mark each passed, failed, or blocked.
 
-1. Starting from the session-4 core, build a local script/fixture-based workbench for three scenarios: incomplete review rejection, repeated review with no duplicate activity, and an edited request remaining read-only after review.
-2. Run against a clearly disposable test database/fixture, not the shared demo database. Capture actual HTTP outcomes, correlation IDs, and relevant log/activity evidence in a structured report with pass/fail/blocked results.
-3. Add a report viewer or readable local report linking scenario evidence to a diagnosis. Introduce a controlled defect in an isolated copy, ask Codex to investigate within a bounded loop, then compare evidence before/after the repair. Keep the human acceptance decision explicit.
+Build a report or viewer that connects each scenario to its observed evidence and an explanation. Then in an isolated copy, deliberately introduce a defect. Ask Codex to investigate within a bounded loop, repair it, and compare before/after results. A human still decides whether the repair is acceptable.
 
-**Deliverable:** An executable local scenario workbench and investigation report demonstrating a diagnosed and repaired defect.
+**Finished result:** A runnable investigation tool and readable report showing an actual diagnosed and repaired defect.
 
-**Suggested Codex instruction:**
+**A useful first step:** Run one rejection scenario against an isolated setup and generate its report; extend to the other scenarios next.
+
+**Try this with Codex:**
 
 ```text
-Starting from session-4 core, build a local investigation workbench for incomplete rejection, repeat-review idempotency, and read-only enforcement. Use an isolated disposable fixture, never reset the shared demo database. Capture actual HTTP/log/activity evidence and generate a readable report. Plan isolation first, then implement in bounded slices; use a controlled defect to demonstrate diagnosis and repair.
+From session-4 core, build a local investigation workbench for incomplete review rejection, repeated review with one activity, and editing protection after review. Use a separate disposable setup and never erase the demo database. Capture actual API/log/activity results in a readable report. Plan isolation first, work in bounded steps, and demonstrate a controlled defect and repair.
 ```
 
-**First slice:** Agree a small, usable part of this feature, implement it, and record what remains. Stop at the session boundary or agreed execution limit.
+## Export extensions
 
-**Explain afterwards:** Which session concept shaped your approach, what did you delegate to Codex, and what decision or verification remained yours?
-
-## Session 5
+These are additional optional practice after [adding Status](optional-export-extension.md), outside the four core build sessions. They are not required for the showcase.
 
 ### Optional 1: Filtered CSV export across UI and API
 
-Use only the roles and skills created by this session, as shown in the [agent harness progression](agent-harness.md). Give one custom implementer ownership, obtain separate verification/review from the main Codex session, using the new custom verifier/reviewer only after session 2 has created them, and use remote Microsoft Learn/OpenAI Docs MCP to resolve a relevant design/framework question. Record its source and effect in docs/evidence.md; inspect the feature with normal browser/API tools.
+**Level:** More approachable. **Full challenge estimate:** 25–40 minutes. **Start from:** this session’s completed core.
 
-**Difficulty:** Approachable. **Estimated effort:** 25-40 minutes.
+Let the caseworker export all requests, only New requests, or only Reviewed requests.
 
-**Starting point:** This session's completed core; no optional prerequisite.
+**What you do:**
 
-**Work to do:**
+Inspect the exporter, its callers, and tests before changing it. Agree how the three choices should behave. Then add the choice in the screen and matching filtering on the server. Include a useful filename. No filter must keep the optional Status export, including Status.
 
-1. Inspect the existing exporter, callers, and tests; specify an optional All/New/Reviewed export control.
-2. Implement status filtering in UI and API with a helpful filename. No filter preserves the core export including Status; unsupported values produce a clear error.
-3. Demonstrate all three choices and the unchanged original caller. Review the impact note and release note as well as the implementation.
+Reject unknown filter values with a clear error. Demonstrate all three choices and the earlier unfiltered call. Then write a short note explaining which parts of the app are affected and what the caseworker sees differently.
 
-**Deliverable:** An end-to-end filtered export with preserved default behavior and an impact note.
+**Finished result:** A working screen-to-server filtered export with the original default behavior preserved.
 
-**Suggested Codex instruction:**
+**A useful first step:** Add the server filter while keeping the no-filter result unchanged, then add the screen control.
+
+**Try this with Codex:**
 
 ```text
-Inspect the session-5 export implementation and callers before editing. Add an All/New/Reviewed export control and matching server filter. Preserve the unfiltered Status-bearing export and its formatting. Reject unknown filter values, demonstrate all choices, and explain the compatibility impact.
+Inspect the optional Status exporter and callers. Add All/New/Reviewed export choices and matching server filtering with a helpful filename. Preserve the default Status-bearing export and formatting. Reject unknown values, demonstrate the choices and old caller, and explain the effect on existing use.
 ```
-
-**First slice:** Agree a small, usable part of this feature, implement it, and record what remains. Stop at the session boundary or agreed execution limit.
-
-**Explain afterwards:** Which session concept shaped your approach, what did you delegate to Codex, and what decision or verification remained yours?
 
 ### Optional 2: Two export contracts with a legacy consumer
 
-Have the main Codex session split independent context/risk analysis between currently available custom roles, collect evidence, and sequence one writer. If this optional task asks for another role, create it first; do not assume a future coordinator exists. Specify each handoff and stop rule. Use remote Microsoft Learn/OpenAI Docs MCP for external technical evidence, then record actual calls, source URLs, and findings. Use normal browser tools for exploration. Optional read-only remote GitHub can inspect an approved repository/PR after authentication; it is never a prerequisite.
+**Level:** Difficult. **Full challenge estimate:** 45–75 minutes. **Start from:** this session’s completed core.
 
-**Difficulty:** Difficult. **Estimated effort:** 45-75 minutes.
+Support an older program that can only read the original two-column export.
 
-**Starting point:** This session's completed core; no optional prerequisite.
+**What you do:**
 
-**Work to do:**
+Build a small runnable “old consumer”: a program that accepts exactly Municipality and Project title and rejects the added Status column. Then keep the core Status-bearing endpoint. Add a clearly separate route for the old two-column format. Share the existing formatting/escaping code instead of making two unrelated implementations.
 
-1. Starting from the session-5 core, model a legacy consumer that accepts exactly the original two columns and rejects the new Status column.
-2. Retain the core endpoint with Status and add an explicitly separate legacy two-column route. Share formatting/escaping code, make contract selection explicit, and keep both outputs deterministic.
-3. Implement a small runnable consumer example and demonstrate it with the legacy route and incompatible new output. Document compatibility, migration, and eventual retirement considerations without needing a deployment. Do not assume Optional 1 filtering exists.
+Demonstrate the old consumer succeeding with the old-format route and rejecting the new format. Both exports should have predictable output. Then write a short compatibility note: who needs each format, how the older consumer could move to the new one, and when the old route could eventually be retired. No deployment or Optional 1 is needed.
 
-**Deliverable:** Two explicit export contracts, shared formatting, a runnable legacy consumer, and a compatibility/migration note.
+**Finished result:** Two explicit export formats, shared formatting, a runnable older consumer, and a practical migration note.
 
-**Suggested Codex instruction:**
+**A useful first step:** Build the two-column consumer and show why the new output breaks it; then add the separate old-format route.
+
+**Try this with Codex:**
 
 ```text
-Starting from session-5 core, create an explicit legacy two-column export alongside the current Status-bearing endpoint. First model a runnable old consumer that requires two columns. Share formatting code, preserve the core endpoint, and demonstrate compatible and incompatible consumer calls. Optional 1 is not required. Supply an impact and migration note.
+From the optional Status export extension, build an old consumer that requires exactly the original two columns. Keep our current Status-bearing export and add a separate legacy two-column route using shared formatting. Demonstrate compatible and incompatible calls. Explain the compatibility impact and possible migration. Do not assume filtering exists.
 ```
-
-**First slice:** Agree a small, usable part of this feature, implement it, and record what remains. Stop at the session boundary or agreed execution limit.
-
-**Explain afterwards:** Which session concept shaped your approach, what did you delegate to Codex, and what decision or verification remained yours?
-

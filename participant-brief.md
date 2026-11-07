@@ -1,64 +1,60 @@
-# Case: From Request to Review
+# Your hackathon brief — From Request to Review
 
-## Your challenge
+## The goal
 
-A fictional municipality sends your company a request about a project. Help a caseworker see the request, check its basic information, fix anything missing, and mark it reviewed.
+Become more familiar with agentic engineering: understand the concepts, try them on real tasks, and use Codex with more confidence. You do not need to be an expert in the application stack.
 
-You will build a small application with Codex. The main goal is to learn how to guide, verify, and review an agent’s work throughout development. You are engineering how Codex develops and changes the application. Autonomy means giving Codex a bounded goal, verification tools, feedback, and clear stopping conditions. The application itself needs no LLM integration.
+## The case in one minute
 
-## The whole business case
+A fictional municipality sends your company a project request. Help a caseworker see it, check what is missing, correct it, and mark it Reviewed.
 
-A request has four fields:
+The request contains municipality name, project title, an optional description, and a Budget attached checkbox. Name and title must be filled in, and budget must be checked before review. Names/titles containing only spaces count as empty.
 
-- Municipality name.
-- Project title.
-- Short description.
-- “Budget attached” checkbox.
+A request starts **New**. When complete, it can become **Reviewed**. Reviewed requests cannot be edited. The budget checkbox needs no file upload. All data and rules are fictional.
 
-There are three rules: municipality name is required, project title is required, and the budget must be attached before the request can be marked reviewed. Empty or whitespace-only names and titles count as missing. Description is optional.
+## What you will do
 
-A request starts as **New**. When the information is complete, the caseworker can mark it **Reviewed**. Reviewed requests are read-only.
-
-Example: “Fjordby — School renovation” has no budget attached. The application explains what is missing. Tick the checkbox and save; the request is ready to review.
-
-All data and rules are fictional. No finance knowledge or actual document upload is needed.
-
-## Your five build sessions
-
-| Session | Practise with Codex | Application task |
+| Session | App task | Learning focus |
 | --- | --- | --- |
-| 1 | Give the agent context and clear acceptance examples | See requests and open their details |
-| 2 | Give the agent reusable instructions and verification tools | Show what information is missing |
-| 3 | Trace graph branches and delegate a bounded feedback loop | Edit, save, and recheck a request |
-| 4 | Evaluate the app and Codex run, observe results, and review changes | Mark reviewed and show the activity |
-| 5 | Understand existing code, preserve behavior, and release | Add status to an existing CSV export |
+| 1 | Show requests and their details | Give Codex a clear task and useful information |
+| 2 | Explain what information is missing | Create your own agents and reusable skills |
+| 3 | Edit and save a request | Check, repair, and stop within agreed limits |
+| 4 | Mark Reviewed and show activity | Check results, follow an action, and review the work |
 
-## How to work
+Use .NET 10/C#, React/TypeScript, PostgreSQL installed on Windows, VS Code or VS Code Insiders, and Codex. Complete [setup before the event](workshop-full/agentic-engineering-workshop/docs/00-before-first-build.md).
 
-For each task: explain what should happen, give Codex the relevant context, let it implement a small change, run checks, and inspect the evidence before accepting the work.
+## Get your case material
 
-Use .NET 10, C#, TypeScript, React, PostgreSQL, Windows Docker Desktop, VS Code Insiders, and Codex. Complete [setup before the event](case/docs/00-before-first-build.md).
+Clone [the hackathon repository](https://github.com/twoday-ai/hackathon-agentic-engineering-20261109). Open `case/start-here` in VS Code or VS Code Insiders and work there throughout the four sessions. Everything for the case is under `case`: guides, starting code, project tests, and all six saved versions (five core stages plus an optional export reference) in `case/checkpoints`. Use completed checkpoints for reference or recovery and explain any supplied work. The repository also has `demos` for hackathon demonstrations and `slides` for presentation material; these are separate from your case work.
 
-Rotate who operates Codex. Use the supplied examples and recovery checkpoints when needed. Optional challenges add depth; none is required for a later session.
+## How the days fit together
 
-## Your final demonstration
+Day 1: Build 1 (10:30–11:30), Harness Engineering (12:30–13:30), then Build 2 (13:30–15:00). From Greenfield to Brownfield is a discussion at 15:00–15:45, followed by wrap-up; it needs no separate case or coding task.
 
-Open an incomplete request, fix it, mark it reviewed, show the activity entry, and export it with its status. Show one passing check, your workflow graph and agent execution record, and explain one improvement you made to how you worked with Codex. If you need fresh examples for rehearsal, follow the [recovery and demo instructions](case/docs/recovery-and-demo.md).
+Day 2: after follow-up, Loop and Graph Engineering opens at 09:00–09:30, followed by Build 3 (09:30–11:30). Evaluation, Observability, and Governance runs at 12:00–12:30, followed by Build 4 (12:30–14:30): complete review/activity, check and refine the solution, and prepare the showcase. Basic checks, stopping conditions and human acceptance apply throughout. Graph engineering stays high level.
 
-Success means you understand the concepts, can show how to apply them, and feel more confident using Codex to solve given tasks. Explain what you tried, how you checked the result, and what you would change next time. Use a recovery checkpoint if needed to continue through all topics, and identify supplied work clearly.
+## How to use the material
 
-## Optional challenges
+Read the current session card, ask Codex for a small plan, review its assumptions, then let it make the change. Try the result, inspect the checks and changed lines, and decide whether to accept the work. Take turns operating Codex in your team.
 
-Faster teams can build a searchable workspace, a batch readiness view, a resilient edit workflow, a diagnostic view, or a compatible filtered export. Each challenge applies the session concepts with Codex and has a meaningful deliverable. Choose the current session challenge after completing its core; no optional work is needed for later sessions or the final goal. Use a saved core baseline, stop at the scheduled session close, and continue unfinished stretch work later if desired.
+The starter supplies two agents and three skills. You create more during the core exercises. A custom agent has a job; a skill describes how to do a job. Remote Microsoft Learn/OpenAI Docs tools help you look up technical questions. No local MCP server or model API key is needed.
 
-See the [challenge guide](case/docs/optional-challenges.md) for steps, effort estimates, and extensions.
+Keep short notes about what you tried, what happened, and what you learned. Your task is to understand and apply the concepts, not finish the most features.
 
-## Your go-to guide and optional levels
+## Guidance you can reuse in a project
 
-Use the [participant go-to guide](case/docs/go-to-guide.md) throughout the workshop for concept explanations, task-specific Codex prompts, and troubleshooting. Read the relevant section before a task or when you get stuck.
+In session 2 you create a business-rule advisor and a technical advisor. Your new skills describe how to implement business rules and API features using the existing project. Session 3 adds a React implementation skill. These help decide how the code should work, not only whether a check passes. Session 4 adds dedicated verifier/reviewer roles to assess the software change. You check and review the work yourself throughout both days.
 
-Every session offers [Optional 1 and Optional 2](case/docs/optional-challenges.md). Optional 1 is more approachable; Optional 2 is deliberately difficult. Both have a meaningful deliverable and suggested Codex instructions. Choose either after the core: Optional 2 does not depend on Optional 1. Save a core baseline and keep the next core session independent.
+## Help and extra challenges
 
-## Prepared agents, skills, and remote MCP
+Use the [go-to guide](workshop-full/agentic-engineering-workshop/docs/go-to-guide.md) for explanations and suggested Codex prompts. Use [words and concepts](workshop-full/agentic-engineering-workshop/docs/words-and-concepts.md) for unfamiliar terms.
 
-The starter includes two example agents and three example skills. Participants create two more agents and three skills as a vital session-2 task, then add coordination/tracing/brownfield workflows in later sessions. The pack includes inactive authoring scaffolds and project-scoped references to Microsoft Learn and OpenAI Docs remote MCP servers. No MCP server runs on the participant laptop. Read the [agent harness guide](case/docs/agent-harness.md), inspect .codex/config.toml in your active working copy, and verify remote tool discovery before the event. Optional remote GitHub is disabled until approved authentication/repository access is ready.
+Complete the core first. Optional 1 is more approachable; Optional 2 is deliberately harder. Both build useful features, but neither is needed for later sessions or the final goal. Choose either and stop for the next topic.
+
+If blocked, save your work and ask the facilitator for help or a recovery checkpoint: a saved code version that lets you continue. Explain which work was supplied.
+
+## At the end
+
+Show an incomplete request, correct and save it, mark it Reviewed, show its activity, and demonstrate that reviewed requests cannot be edited. Exporting Status is optional. Show one check and explain a decision you made while working with Codex.
+
+Be ready to answer: **What did you learn, where did you use it, and what did you check yourself?**

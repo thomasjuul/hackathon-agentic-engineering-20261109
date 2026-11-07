@@ -1,74 +1,113 @@
 # Before the first build session
 
-Complete this before the event. Aim to arrive with a working green health screen, not an installation task.
+Complete these steps before the hackathon. You will work in `case/start-here` throughout the four build sessions.
 
-## 1. Install and sign in
+## 1. Install the tools
 
-Use the organisation-approved versions of:
+- .NET 10 SDK.
+- Node.js 22.12 or newer, including npm.
+- Git.
+- PostgreSQL 17 installed on Windows, including command-line tools.
+- VS Code or VS Code Insiders, with C# tooling, a PostgreSQL extension, and Codex. Sign in to Codex.
 
-- Windows with Docker Desktop using Linux containers and WSL 2.
-- .NET 10 SDK (the runtime alone is insufficient).
-- Node.js 22.12 or newer; reference version 22.14.0, including npm.
-- VS Code Insiders, its C# tools, and Codex. Sign in and try one small read-only task.
-- Git if your team wants to checkpoint its work with commits.
+### Add PostgreSQL to PATH
 
-The core app requires no model API key and no external business service. Ports: browser 5173, API 5080, local PostgreSQL 54329.
-
-The PostgreSQL password is a public local-training value. The container port binds to localhost. This is a single-user workshop setup.
-
-## 2. Open PowerShell at the distribution root
-
-Run the commands from the folder containing workshop.json and compose.yaml:
+1. Find the folder containing `psql.exe`, usually `C:\Program Files\PostgreSQL\17\bin`. Use your actual installation location.
+2. In Windows Start, search for **Edit environment variables for your account**.
+3. Under **User variables**, select **Path → Edit → New** and add the `bin` folder. Keep the existing entries. If no user Path exists, create one named `Path`.
+4. Save with **OK**, then close and reopen PowerShell and your editor.
+5. Check in a new terminal:
 
 ```powershell
-powershell -File .\scripts\Check-Setup.ps1
-powershell -File .\scripts\New-Workspace.ps1
-powershell -File .\scripts\Start.ps1
+psql --version
 ```
 
-The copy is created at participant-work. It is the folder to open in VS Code Insiders. Both new terminal windows must stay open. Visit http://127.0.0.1:5173 and confirm the API and PostgreSQL are ready.
+## 2. Clone and open the repository
 
-The launcher restores .NET packages, installs browser packages, starts PostgreSQL, and seeds three fictional requests. Approve network access according to your organisation's policies. On first frontend installation npm creates a package-lock.json; preserve it and the launcher then uses npm ci. No lockfile has been pre-generated in this distribution because dependency installation was unavailable during authoring.
-
-## 3. Verify the baseline
+In PowerShell:
 
 ```powershell
-powershell -File .\scripts\Verify.ps1
+git clone https://github.com/twoday-ai/hackathon-agentic-engineering-20261109.git
+Set-Location hackathon-agentic-engineering-20261109
 ```
 
-This runs API tests with isolated SQLite, frontend tests, and a frontend production build. It does not modify your demo database. Initial green checks verify the supplied foundation; they do not mean future exercises are implemented.
+If you already cloned the repository, use your existing local copy.
 
-## 4. Read the tiny case
+| Folder | What you will find |
+| --- | --- |
+| `case/start-here` | Your starting code and working folder |
+| `case/docs` | Your guides and session cards |
+| `case/checkpoints` | All six saved versions for reference and recovery |
+| `demos` | Demonstrations from the hackathon |
+| `slides` | Presentation slides |
 
-Municipality name, project title, description, and Budget attached. Three required items: name, title, budget. New becomes Reviewed. Reviewed is read-only.
+Open `case/start-here` with **File → Open Folder**, or use the command for your editor:
 
-Before session 1, write two examples of selecting different requests. Read participant-work/TASK.md. Keep reference answer checkpoints closed while doing the exercises.
+| Editor | Command from the repository root |
+| --- | --- |
+| VS Code | `code .\case\start-here` |
+| VS Code Insiders | `code-insiders .\case\start-here` |
 
-## 5. Preserve work and recover safely
+Keep working in `start-here`; the checkpoints are supplied reference copies.
 
-The participant-work folder is your evolving application across all five sessions. You do not automatically switch checkpoints after every session. Checkpoints are reference answers and recovery starting points. Use the baseline map in [Recovery and demonstration](recovery-and-demo.md); the instructor supplies recovery sources missing from the participant pack. Inspect and verify the recovered behavior before continuing.
+## 3. Create the local database
 
-To recover, stop the app and create a new folder rather than copying over your work:
+Keep your installed PostgreSQL server running on `localhost:5432`. Connect as the installation administrator through your PostgreSQL extension, or run:
 
 ```powershell
-powershell -File .\scripts\Stop.ps1
-powershell -File .\scripts\New-Workspace.ps1 -Checkpoint 02-after-build-2 -Destination .\recovery-session-2
-powershell -File .\scripts\Start.ps1 -Workspace .\recovery-session-2
+psql -h localhost -p 5432 -U postgres -d postgres
 ```
 
-All workspaces use the same local demo database so requests survive a restart or source change. To restore the original examples, stop the API, run scripts/Reset-Data.ps1, type RESET when prompted, then start again. A data reset affects every workspace using this shared local database.
+In the database connection, run these statements once, separately with autocommit enabled:
 
-## If something fails
+```sql
+CREATE ROLE workshop LOGIN PASSWORD 'workshop-local-only';
+CREATE DATABASE request_workshop OWNER workshop;
+```
 
-- Tool missing: fix it before build time. Restart PowerShell after installation so PATH updates.
-- Database unavailable: start Docker Desktop, choose Linux containers, and inspect docker compose logs.
-- Package restore blocked: ask the environment facilitator about the approved proxy, certificates, or package source.
-- Port occupied: use scripts/Stop.ps1 for the recorded launcher, or close manually started app terminals.
-- Script execution blocked: follow your organisation's approved PowerShell policy; do not bypass it as a workshop instruction.
-- Exported requests already reviewed: use a confirmed data reset if fresh seed data is needed.
+If the role or database already exists, reuse your approved training setup. These credentials are for local fictional training data. If you use different connection details, use those in step 5 too.
 
-Use the exact Windows configuration for the rehearsal. Local source checks on another operating system cannot establish that this setup works on a managed Windows laptop.
+## 4. Install project dependencies
 
-## Prepared agents, skills, and remote MCP
+Open a terminal in `case/start-here`, which contains `Workshop.slnx`, `api`, and `web`:
 
-The starter includes two example agents and three example skills. Participants create two more agents and three skills as a vital session-2 task, then add coordination/tracing/brownfield workflows in later sessions. The pack includes inactive authoring scaffolds and project-scoped references to Microsoft Learn and OpenAI Docs remote MCP servers. No MCP server runs on the participant laptop. Read the [agent harness guide](agent-harness.md), inspect .codex/config.toml in your active working copy, and verify remote tool discovery before the event. Optional remote GitHub is disabled until approved authentication/repository access is ready.
+```powershell
+dotnet restore Workshop.slnx
+Set-Location web
+npm install
+Set-Location ..
+```
+
+Keep the generated `web/package-lock.json`. Use `npm ci` for later clean installations with that file.
+
+## 5. Start the application
+
+In terminal 1, from `case/start-here`:
+
+```powershell
+$env:ConnectionStrings__Workshop = 'Host=localhost;Port=5432;Database=request_workshop;Username=workshop;Password=workshop-local-only'
+dotnet run --project api --no-launch-profile --urls http://127.0.0.1:5080
+```
+
+In terminal 2, from `case/start-here`:
+
+```powershell
+Set-Location web
+npm run dev
+```
+
+Open http://127.0.0.1:5173. Check http://127.0.0.1:5080/api/health for a working database connection. Keep both terminals open. Stop each process with Ctrl+C; keep PostgreSQL running.
+
+## 6. Run the checks
+
+From `case/start-here`:
+
+```powershell
+dotnet test Workshop.slnx
+Set-Location web
+npm test
+npm run build
+Set-Location ..
+```
+
+Open [build session 1](01-build-session-1.md) in `case/docs` when you are ready to begin.

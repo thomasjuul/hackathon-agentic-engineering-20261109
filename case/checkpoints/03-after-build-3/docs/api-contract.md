@@ -1,17 +1,32 @@
-# Target API contract (introduced gradually)
-All JSON uses camelCase; status is "New" or "Reviewed".
-- GET /api/health -> {status:"ok", database:true} (provided before session 1).
-- GET /api/requests -> [{id, municipality, projectTitle, status}] (build 1).
-- GET /api/requests/{id} -> {id, municipality, projectTitle, description,
-  budgetAttached, status, readiness, activity} (build 1).
-- POST /api/requests/{id}/check -> {isReady, missingFields:string[]} (build 2).
-- PUT /api/requests/{id} with {municipality, projectTitle, description, budgetAttached}
-  -> updated detail; saves incomplete drafts; 409 if Reviewed (build 3).
-- POST /api/requests/{id}/review -> updated detail; 400 if incomplete (build 4).
-- GET /api/requests/export -> CSV download (existing supplied behavior).
+# How the browser talks to the API
 
-Before build 2 readiness is null. Before build 4 activity is empty.
-A review activity has action, actor, occurredAt (ISO date), and correlationId.
-A missing request returns 404. Errors include a readable message.
-The correlation header is X-Correlation-ID. Review is repeatable without duplicate activity.
-The workshop has one development-only caseworker, not an authentication system.
+This is a technical reference for you and Codex. The browser sends a call to an endpoint: an API address that does a particular job. JSON is the text format used to exchange the information. Property names use camelCase, such as `projectTitle`.
+
+## API endpoints
+
+| Available | Action | Endpoint | Result |
+| --- | --- | --- | --- |
+| Available | Check the app/database connection | GET `/api/health` | `{status:"ok", database:true}` |
+| Available | Download the existing export | GET `/api/requests/export` | CSV with Municipality and Project title |
+| Available | Get the list | GET `/api/requests` | A list of `{id, municipality, projectTitle, status}` |
+| Available | Open one request | GET `/api/requests/{id}` | Its details, described below |
+| Available | Check what is missing | POST `/api/requests/{id}/check` | `{isReady, missingFields:string[]}` |
+| Available | Save the four editable fields | PUT `/api/requests/{id}` | Updated details; incomplete drafts may be saved |
+| Planned | Mark a complete request Reviewed | POST `/api/requests/{id}/review` | Updated details and activity |
+
+`{id}` stands for the selected request's ID. GET reads information, PUT saves an update, and POST asks the server to perform an action.
+
+## Request details
+
+The detail response contains `{id, municipality, projectTitle, description, budgetAttached, status, readiness, activity}`. Status is `"New"` or `"Reviewed"`. Readiness is included. Activity is empty until review recording is implemented.
+
+To save, send `{municipality, projectTitle, description, budgetAttached}`. A review activity contains `action`, `actor`, `occurredAt` (ISO date/time), and `correlationId`.
+
+## Errors and repeated actions
+
+- Unknown request: HTTP 404, meaning “not found”.
+- Review with missing required information: HTTP 400, meaning the action is invalid.
+- Editing a Reviewed request: HTTP 409, meaning the update conflicts with its current state.
+- Reviewing a request again returns the current request and does not add another activity.
+
+Errors include a readable message. The `X-Correlation-ID` response header connects the API call with its server log messages. The app has one fictional development caseworker; it has no sign-in or permission system.

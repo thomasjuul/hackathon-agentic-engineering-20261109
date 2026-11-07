@@ -1,68 +1,59 @@
-# Build session 2: Show what information is missing
+# Build session 2: Give Codex reusable guidance
 
-**Learning:** Harness engineering. **When:** 13:00-14:30 on day 1.
+**When:** Day 1, 13:30–15:00. **Time:** 65 minutes core, up to 20 optional, then 5 for reflection.
 
-The business case is still four fields, three rules, and two statuses. Read docs/rules.md.
+At 15:00, save your work and evidence and move to the Greenfield to Brownfield discussion. There is no further build on Day 1. Define success criteria, relevant checks and human decision boundaries during this build.
 
-Use the prepared [agent harness](agent-harness.md) for the role definitions, skill catalogue, MCP tools, and setup.
+## What you are learning
 
-## Learning outcome
+**Harness engineering.** A harness is the guidance and tools around an agent. Instead of explaining everything again in every prompt, you write down useful roles and ways of working. You will create some of these yourself.
 
-Create custom agents and reusable skills yourself, use them on the readiness task, and improve them using observed feedback. Editing an existing example alone does not meet this outcome.
+## What the app should do
 
-## Core task - 65 minutes
+The app explains what information is missing. You also have your own agents and skills for business decisions and technical implementation.
 
-Reserve approximately 35 minutes for harness design/creation/discovery/use, 20 for the small readiness implementation, and 10 for verification/reflection within this budget. These are rehearsal targets. Protect harness creation if implementation needs facilitator support.
 
-1. Inspect the two starter agents and three starter skills. Explain agent responsibility versus reusable procedure. Read the rules and write complete, missing-field, and whitespace examples.
-2. Use inactive templates/custom-agent.toml and templates/workflow.SKILL.md scaffolds. Consult OpenAI Docs remote MCP for formats. Before generating files, design a verifier that runs checks/reports evidence and an independent reviewer that inspects diff/evidence without editing.
-3. Create .codex/agents/workshop_verifier.toml and .codex/agents/workshop_reviewer.toml. Specify purpose, inputs, procedure, relevant skills, outputs, allowed changes, and stopping conditions. Do not copy completed answer checkpoints.
-4. Create three new .agents/skills/<name>/SKILL.md files: verify-change, review-change, and use-mcp. Define triggers, steps, context/tools, evidence, and stopping/human-review behavior. Verification names the real command and distinguishes pass/fail/not-run; review separates recommendation from human acceptance; MCP use discovers tools, searches/fetches original remote sources, and explains applicability.
-5. Update AGENTS.md to route the task through these roles/procedures. Confirm actual discovery, explicitly invoke every new skill, and delegate to both new custom agents. File creation or mentioning a role does not prove activation.
-6. Use the new harness to implement the three server readiness checks and show Ready to review/Information missing. Keep rules on the server and reuse the existing evaluator/DTO.
-7. Have the new verifier report actual results and the new reviewer assess diff/evidence. Improve at least one authored definition after feedback. Record authored files, actual use, improvement, remote sources, and human decision in docs/evidence.md.
+## Work through the core task
 
-## Required agent, skill, and MCP practice
+Begin by looking at one supplied agent and one supplied skill with Codex. Use them as examples for guidance you would keep in a real project: what the business rules mean and how the code should be organised.
 
-- **Create:** two agents and three skills absent from the starter.
-- **Use:** delegate to both new roles and invoke each new skill on the current task, including a relevant remote documentation lookup.
-- **Improve:** revise a responsibility, procedure, or handoff after observing its effect.
-- **Explain:** what belongs in a role, skill, AGENTS.md, and remote connection; report blocked attempts accurately.
+Create `workshop_domain_advisor` to clarify the rules and examples, and `workshop_technical_advisor` to suggest how to implement them using the existing .NET API and database code. The advisors explain their recommendations without editing; your implementer makes the agreed change. Create `implement-business-rules` to describe how rules become shared server logic, `implement-api-feature` to guide a small API change, and `use-mcp` to find supporting remote documentation. Start from the templates in `case/docs/templates` and use remote OpenAI Docs for the format. Review the proposed responsibilities before creating files.
 
-If you recover a completed harness, label it supplied and still create/exercise a distinct role or skill before claiming the authoring outcome. Facilitators may supply an implementation slice to preserve time for this learning. No optional work is required.
+Ask the domain advisor to explain missing names, titles, and budgets, including spaces-only values and the optional description. Ask the technical advisor where these checks belong and how the API should return them. Use remote Microsoft Learn for a relevant API question. Update AGENTS.md, confirm Codex can find the two agents and three skills, then use the implementer with your new skills to build the readiness feature. Keep the rules on the server and display its result in the browser.
 
-## Acceptance examples
+Run the checks with Codex and review the actual behavior yourself. Improve one definition based on an unclear answer or implementation choice. Record which business or technical decision it helped you make. Aim for about 35 core minutes creating and trying the guidance, 20 implementing the feature, and 10 checking it. The dedicated checking and reviewing agents are created in session 4; you still check and review every change now.
 
-- A complete request is ready.
-- Empty or whitespace-only names and titles are missing.
-- Unchecked budget is missing; optional description never blocks.
+## Try this with Codex
 
-For task help, adaptable prompts, and troubleshooting, use the shared [go-to guide](go-to-guide.md).
+Start with this instruction and adapt it to your work:
 
-## Suggested Codex task
+```text
+We are doing session 2. Help me design workshop_domain_advisor and workshop_technical_advisor, plus implement-business-rules, implement-api-feature, and use-mcp. Explain each job or procedure in simple language. Show me the starter examples and ask me to review the proposed responsibilities before creating files. Use remote OpenAI Docs for the format. Do not copy completed answers.
+```
 
-> Help me create the session-2 harness from only two starter agents and three skills. First propose responsibilities for two new agents and procedures for three new skills; wait for my design review. Then help me author them from scaffolds, confirm discovery, and exercise each on the readiness task. Improve one definition after feedback. Do not copy reference answers or claim file creation proves activation.
+Then, when ready:
 
-## Optional tasks
+```text
+Create the agreed agents and skills from our templates and update AGENTS.md. Confirm that Codex can find them. Use the domain advisor to explain the rules, the technical advisor to suggest a small design, and the implementer with the new skills to build the three readiness rules. Check the real result with me. Show actual results, help me improve one definition, and leave the acceptance decision to me.
+```
 
-### Optional 1: Documentation specialist and batch readiness
+Read Codex's plan and results yourself. If a role, skill, or remote tool is unavailable, record the problem and ask the facilitator. An unavailable tool is not a successful tool call.
 
-Create workshop_docs and a research-docs skill, demonstrate a remote source lookup, then use the guidance to implement batch readiness through existing endpoints.
+## How you know it worked
 
-**Deliverable:** A batch readiness UI and reusable task brief, with successful and failed results visible.
+- Name, title, and budget present: “Ready to review”.
+- A missing name, title, or budget is named in the message.
+- A name or title containing only spaces counts as missing.
+- An empty description does not block readiness.
+- Both advisors and all three new skills guided the implementation, or a blocked attempt is explained.
+- You can explain one business decision and one technical decision that shaped the code.
 
-### Optional 2: Advanced harness and cancellable batch runner
+Run `dotnet test Workshop.slnx` from your working-copy root. Run `npm test` and `npm run build` from its `web/` folder. Ask Codex to run these with you and explain any failures. See [setup](00-before-first-build.md) for the full commands. Add checks for the new examples too; old passing tests alone do not prove the new feature works.
 
-From session-2 core, author a documentation specialist and plan-change skill specifying ownership, handoffs, conflicting findings, and stopping rules. Use them to implement the cancellable batch runner with at most three concurrent checks. Include needed research guidance yourself; Optional 1 is not required.
 
-**Deliverable:** A robust batch execution component, progress UI, and evidence of cancellation and stale-result handling.
+## If you finish the core early
 
-Optional 2 is deliberately more difficult and starts from this session's core; Optional 1 is not required. See the [steps and Codex prompts](optional-challenges.md#session-2). Choose a working slice and stop for the next topic; neither level is needed later.
+- **Optional 1 — Documentation specialist and batch readiness:** the more approachable challenge.
+- **Optional 2 — Advanced harness and cancellable batch runner:** a harder challenge with more design work.
 
-## Reflection and evidence
-
-Run `powershell -File .\Verify.ps1` from your working copy. Existing green checks alone do not prove the new feature works. Write and run checks for your acceptance examples.
-
-The instructor can supply the session-2 acceptance pack, or a fresh recovery copy of `02-after-build-2`. Preserve your own work first.
-
-At the session close, explain the concept in your own words, how you used it with Codex, and one thing you would improve. Keep the record short. If implementation blocks progress, use facilitator support or a clearly identified recovery checkpoint so you can practise the next concept. Optional features never determine learning success.
+Both involve building a useful feature. Choose either; Optional 2 does not require Optional 1. See [the challenge steps and prompts](optional-challenges.md#session-2). Save your working core first. Completing optional work is never required for a later session or the final goal.

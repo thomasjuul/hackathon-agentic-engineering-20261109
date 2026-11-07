@@ -1,6 +1,6 @@
 ---
 name: implement-slice
-description: Implement a small C#/.NET or React/TypeScript workshop slice using existing components.
+description: Implement a small C#/.NET or React/TypeScript change using existing components.
 ---
 
 1. Read the accepted plan and current contract. Be the single owner for the agreed files. Use the server as the source of readiness rules.

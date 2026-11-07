@@ -58,7 +58,7 @@ it('shows a useful API error', async () => {
       const user = setup();
       vi.mocked(api.detail).mockResolvedValue({ ...first, budgetAttached: true, readiness: { isReady: true, missingFields: [] } });
       vi.spyOn(api, 'review').mockResolvedValue({ ...first, budgetAttached: true, status: 'Reviewed',
-        readiness: { isReady: true, missingFields: [] }, activity: [{ action: 'Marked reviewed', actor: 'Workshop caseworker', occurredAt: '2026-11-03T12:00:00Z', correlationId: 'trace-1' }] });
+        readiness: { isReady: true, missingFields: [] }, activity: [{ action: 'Marked reviewed', actor: 'Request officer', occurredAt: '2026-11-03T12:00:00Z', correlationId: 'trace-1' }] });
       render(<App />); await user.click(await screen.findByRole('button', { name: /Fjordby/ }));
       await user.click(await screen.findByRole('button', { name: 'Mark reviewed' }));
       expect(await screen.findByText('Marked reviewed')).toBeInTheDocument();

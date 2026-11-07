@@ -1,37 +1,34 @@
-# From Request to Review — participant pack
+# Start here — From Request to Review
 
-The goal of this hackathon is to become more familiar with agentic engineering: understand its concepts, practise applying them, and use Codex to solve given tasks. The sample application provides a shared exercise for that learning.
+You will improve a small request app while learning how to guide and check Codex's work. You do not need to know every technology or term before you start.
 
-Start with docs/00-before-first-build.md. Open PowerShell in this folder and run:
+## 1. Get ready before the event
 
-```powershell
-powershell -File .\scripts\Check-Setup.ps1
-powershell -File .\scripts\New-Workspace.ps1
-powershell -File .\scripts\Start.ps1
-```
+Follow [setup](00-before-first-build.md). Use installed PostgreSQL on Windows, .NET 10/C#, React/TypeScript, VS Code or VS Code Insiders, and Codex. Clone the repository and open `case/start-here`. Keep developing that same folder through the workshop. All six saved versions are available in `case/checkpoints` for reference/recovery.
 
-Open participant-work in VS Code Insiders. Your first task is in TASK.md. Continue in the same working copy through all five sessions; use the next session card from docs/ as you progress.
+## 2. Open the current session card
 
-The instructor releases each session's acceptance tests separately and can provide a recovery copy without overwriting your work. This pack intentionally contains only the starter code, not reference answers.
+| Session | Start with |
+| --- | --- |
+| 1 | [See requests and open their details](01-build-session-1.md) |
+| 2 | [Give Codex reusable guidance](02-build-session-2.md) |
+| 3 | [Correct missing information and save it](03-build-session-3.md) |
+| 4 | [Mark a request Reviewed and check the result](04-build-session-4.md) |
 
-You are engineering how Codex develops and changes the application. Autonomy means giving Codex a bounded goal, verification tools, feedback, and clear stopping conditions. The application itself needs no LLM integration.
+Your session guides, challenges, glossary, and help stay in `case/docs`. Your application and its project-specific documentation stay in `case/start-here`. Open the current session card in `case/docs` and give Codex that task explicitly.
 
-Use .NET 10, C#, React/TypeScript, PostgreSQL, Windows Docker Desktop, VS Code Insiders, and Codex. See docs/execution-graph.md and docs/recovery-and-demo.md.
+See [the agenda](agenda.md) for timings. Day 1 ends with a discussion of existing projects; there is no separate brownfield case. [Export extension](optional-export-extension.md) is optional.
 
-Four fields, three rules, two statuses. The goal is to learn how to specify, build, verify, review, release, and maintain a small application with Codex.
+## 3. Use the help when you need it
 
-## Optional challenges
+- [Go-to guide](go-to-guide.md): explanations and suggested Codex prompts.
+- [Words and concepts](words-and-concepts.md): unfamiliar terms in plain language.
+- [Agents and skills](agent-harness.md): what is supplied and what you create.
+- [Optional challenges](optional-challenges.md): two substantial levels per session.
+- [Recovery](recovery-and-demo.md): catch up while keeping your own work.
 
-Faster teams can build a searchable workspace, a batch readiness view, a resilient edit workflow, a diagnostic view, or a compatible filtered export. Each challenge applies the session concepts with Codex and has a meaningful deliverable. Choose the current session challenge after completing its core; no optional work is needed for later sessions or the final goal. Use a saved core baseline, stop at the scheduled session close, and continue unfinished stretch work later if desired.
+The caseworker needs to open a request, correct missing information, and mark it Reviewed. Municipality name, project title, and budget are required before review; description is optional. New and Reviewed are the only saved statuses. A Reviewed request cannot be edited. Read `docs/rules.md` in your working copy for the full rules.
 
-See the [challenge guide](optional-challenges.md) for steps, effort estimates, and extensions.
+The starter contains two agents and three skills. You create business-rule and technical advisors, implementation skills for rules/API/React work, and later checking/review guidance during the exercises. Use remote documentation services through MCP for technical questions. Complete the core first; optional tasks never block later sessions.
 
-## Your go-to guide and optional levels
-
-Use the [participant go-to guide](go-to-guide.md) throughout the workshop for concept explanations, task-specific Codex prompts, and troubleshooting. Read the relevant section before a task or when you get stuck.
-
-Every session offers [Optional 1 and Optional 2](optional-challenges.md). Optional 1 is more approachable; Optional 2 is deliberately difficult. Both have a meaningful deliverable and suggested Codex instructions. Choose either after the core: Optional 2 does not depend on Optional 1. Save a core baseline and keep the next core session independent.
-
-## Prepared agents, skills, and remote MCP
-
-The starter includes two example agents and three example skills. Participants create two more agents and three skills as a vital session-2 task, then add coordination/tracing/brownfield workflows in later sessions. The pack includes inactive authoring scaffolds and project-scoped references to Microsoft Learn and OpenAI Docs remote MCP servers. No MCP server runs on the participant laptop. Read the [agent harness guide](agent-harness.md), inspect .codex/config.toml in your active working copy, and verify remote tool discovery before the event. Optional remote GitHub is disabled until approved authentication/repository access is ready.
+Keep short, honest notes. At the end, explain what you learned, where you used it, and how you checked Codex's work. All checkpoint references are included. Use them when needed, explain what was supplied, and keep practising the current concept yourself.

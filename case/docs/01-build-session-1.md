@@ -1,64 +1,57 @@
-# Build session 1: See requests and open their details
+# Build session 1: Understand and improve the request workspace
 
-**Learning:** Prompt and context engineering. **When:** 10:30-11:30 on day 1.
+**When:** Day 1, 10:30-11:30. **Time:** 45 minutes core, up to 10 optional, then 5 for reflection.
 
-The business case is still four fields, three rules, and two statuses. Read docs/rules.md.
+## What is already available
 
-Use the prepared [agent harness](agent-harness.md) for the role definitions, skill catalogue, MCP tools, and setup.
+The app opens directly to the request list. Fjordby, Sodal and Vesteng are loaded from PostgreSQL through the API. Selecting a request displays its municipality, project title, description, budget attachment indicator and status. This working list/detail flow is supplied functionality, not something you need to create.
 
-## Learning outcome
+## What you are learning
 
-Explain prompt versus context using your task. Show one instruction or context improvement and how you checked Codex understood the task.
+Prompt and context engineering: explain a desired improvement, identify the relevant code and contracts, agree on observable examples, and verify the result.
 
-## Core task
+## Work through the core task
 
-1. Write two acceptance examples: opening Fjordby shows its school project; opening Sødal shows its library project.
-2. Ask Codex to inspect AGENTS.md, docs/rules.md, docs/api-contract.md, api/WorkshopDb.cs, and web/src/api.ts before editing.
-3. Ask for a short plan. Identify one assumption and confirm or correct it before implementation. Implement GET /api/requests and GET /api/requests/{id} in api/Endpoints.cs.
-4. Replace the health-only web/src/App.tsx with a request list and selectable detail panel. Keep health and database plumbing intact.
-5. Use the existing types and API client. Show municipality, title, description, budget checkbox value, and status as read-only details.
-6. Run Verify.ps1 and check both examples in the browser. Save your changes and write a short review note.
+1. Run the supplied app and open Fjordby, then Sodal. Confirm that the selected request and details match.
+2. Ask `workshop_analyst` to use `frame-task` and `map-context` to trace the browser, API and database flow. Read AGENTS.md, docs/rules.md and docs/api-contract.md.
+3. Write two acceptance examples for the supplied selection behavior. Inspect its existing tests and identify what they prove and what still needs manual checking.
+4. Choose one small improvement to the existing workspace, such as clearer missing-information copy, a more useful empty state, or a request count. Agree on its expected behavior before editing.
+5. Ask `workshop_implementer` to use `implement-slice` for that improvement. Preserve the existing list and details. Leave business-rule checks, editing and review actions for later sessions.
+6. Try the result, run the checks, inspect the diff and decide whether to accept it. Record what was supplied versus what you changed.
 
-## Required agent, skill, and MCP practice
+Use the remote OpenAI Docs connection to investigate how AGENTS.md guides Codex, and Microsoft Learn to investigate API not-found behavior. Explain how the answers affect your plan.
 
-1. Delegate framing/context mapping to workshop_analyst with $frame-task/$map-context, then give the accepted slice to workshop_implementer with $implement-slice. Keep one writer.
-2. Read fictional rules/contracts directly from the repository. Use OpenAI Docs MCP to clarify repository instructions/context, and Microsoft Learn MCP for a relevant minimal-API routing or JSON-response question. Fetch original supporting pages and explain the decision they inform.
-3. Inspect two requests with the browser/direct API and write actual observations and source references directly in docs/evidence.md.
+## Try this with Codex
 
-Keep this within the existing core time. Report unavailable remote calls as blocked and ask the facilitator for help; never invent a lookup result.
+```text
+The request list and read-only details already work.
+Read AGENTS.md, docs/rules.md and docs/api-contract.md.
+Use workshop_analyst with $frame-task and $map-context to trace the current flow.
+Propose one small usability improvement with two acceptance examples.
+Do not rebuild the supplied list or add editing/review behavior. Do not edit yet.
+```
 
-## Acceptance examples
+After reviewing the plan:
 
-- Both selections show their own correct data.
-- Unknown request IDs return 404.
-- The existing CSV exporter is unchanged.
+```text
+Use workshop_implementer with $implement-slice to implement the agreed improvement.
+Preserve correct request selection and the existing API contracts.
+Run the relevant checks and show the diff and actual results.
+Leave the acceptance decision to me.
+```
 
-For task help, adaptable prompts, and troubleshooting, use the shared [go-to guide](go-to-guide.md).
+## How you know it worked
 
-## Suggested Codex task
+- All three supplied requests appear from the database.
+- Selecting different requests shows the correct read-only details.
+- The agreed improvement meets its acceptance examples.
+- The UI contains only business-facing language.
 
-> Read the brief, repository guidance, API contract, and existing code. Plan and implement only the list and details. Verify two different selections and report the actual results before I review the change.
+Run `dotnet test Workshop.slnx` from the application root, followed by `npm test` and `npm run build` from `web/`.
 
-## Optional tasks
+## If you finish early
 
-### Optional 1: Searchable request workspace
+- Optional 1: add search, a result count and a no-results message.
+- Optional 2: put search and selection in the URL with reload and Back/Forward support.
 
-Add case-insensitive municipality/title search, a result count, and an empty state using loaded data.
-
-**Deliverable:** A searchable list/detail workspace and a short context brief.
-
-### Optional 2: URL-driven workspace with browser navigation
-
-Starting from the session-1 core, implement search and selected-request state in the URL. Specify how unknown IDs, invalid query values, and filtered-out selections behave.
-
-**Deliverable:** A shareable workspace whose URL and screen remain consistent across reload and browser navigation.
-
-Optional 2 is deliberately more difficult and starts from this session's core; Optional 1 is not required. See the [steps and Codex prompts](optional-challenges.md#session-1). Choose a working slice and stop for the next topic; neither level is needed later.
-
-## Reflection and evidence
-
-Run `powershell -File .\Verify.ps1` from your working copy. Existing green checks alone do not prove the new feature works. Write and run checks for your acceptance examples.
-
-The instructor can supply the session-1 acceptance pack, or a fresh recovery copy of `01-after-build-1`. Preserve your own work first.
-
-At the session close, explain the concept in your own words, how you used it with Codex, and one thing you would improve. Keep the record short. If implementation blocks progress, use facilitator support or a clearly identified recovery checkpoint so you can practise the next concept. Optional features never determine learning success.
+See [the challenge steps and prompts](optional-challenges.md#session-1). These extensions are not required by subsequent sessions. Checkpoint 01 preserves the common supplied list/detail baseline; each team's chosen usability improvement may differ.

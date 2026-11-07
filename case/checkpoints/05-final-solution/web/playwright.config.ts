@@ -1,7 +1,7 @@
 import { defineConfig } from '@playwright/test';
 
 const connection = process.env.WORKSHOP_E2E_CONNECTION;
-if (!connection) throw new Error('Use scripts/Test-Browser.ps1 or provide WORKSHOP_E2E_CONNECTION for a separate disposable PostgreSQL database.');
+if (!connection) throw new Error('Provide WORKSHOP_E2E_CONNECTION for a fresh, dedicated database on your installed PostgreSQL server. See docs/06-final-solution.md.');
 
 export default defineConfig({
   testDir: './e2e',

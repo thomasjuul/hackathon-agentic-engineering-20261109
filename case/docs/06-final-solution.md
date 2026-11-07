@@ -1,41 +1,79 @@
 # Final solution and local release
 
-The reference source in the full instructor distribution is checkpoints/05-final-solution. Your participant-work copy should now implement the same core behavior. In the commands below, use participant-work instead of the reference path to verify or release your own code. The optional browser check requires the session-5 web acceptance files from the instructor.
+Use your own working copy. Your case material includes `case/checkpoints/04-after-build-4` as the core reference and `case/checkpoints/05-final-solution` as an optional export reference. Follow [setup](00-before-first-build.md) for installed PostgreSQL and dependency preparation.
+
+## Choose what you need
+
+First run the normal checks and rehearse the final demonstration. The automated browser journey is an extra check with facilitator support. A local release means building a copy that runs outside the development setup; it is not a production deployment. You can ask Codex to explain and run the commands with you.
 
 ## Final checks
 
+At the working-copy root, run each check and inspect its result:
+
 ```powershell
-powershell -File .\scripts\Verify.ps1 -Workspace .\checkpoints\05-final-solution
-powershell -File .\scripts\Test-Browser.ps1
+dotnet test Workshop.slnx
+Set-Location web
+npm test
+npm run build
+Set-Location ..
 ```
 
-Stop other workshop processes before browser verification. That script creates a separate disposable PostgreSQL project on port 55433 and deletes only its own test volume afterward. It requires Docker and downloads a Playwright Chromium browser on first use.
+The API tests use a separate temporary SQLite database; passing them does not prove that the app works with PostgreSQL. Verify the real app journey with installed PostgreSQL as well.
 
-The API test suite uses SQLite for fast, isolated relational checks; it does not prove PostgreSQL compatibility. The browser test exercises the actual Npgsql provider, PostgreSQL, API, and React journey together.
+## Optional automated PostgreSQL/browser journey
+
+The optional export reference includes Playwright configuration and a journey test that also expects the optional Status column. It is not a core acceptance gate. Run this optional browser check from `case/checkpoints/05-final-solution/web`. For your own implementation, ask Codex to add a browser check for the core journey using your code, without requiring the optional Status column. Stop development API/frontend processes to free ports 5080 and 5173.
+
+As the PostgreSQL administrator, create a fresh dedicated database, with autocommit enabled:
+
+```sql
+CREATE DATABASE request_workshop_e2e_01 OWNER workshop;
+```
+
+From `web/` in the working copy:
+
+```powershell
+$env:WORKSHOP_E2E_CONNECTION = 'Host=localhost;Port=5432;Database=request_workshop_e2e_01;Username=workshop;Password=workshop-local-only'
+npx playwright install chromium
+npm run test:browser
+```
+
+Playwright is a browser testing tool. It starts and stops its own API/frontend and tries the full journey using the actual PostgreSQL connection. Its test changes fictional data and expects fresh seeds. Use a newly created empty database and matching connection name for each repeat; never point it at your working database or a presenter database. Databases remain on your installed server after the test. Remove only your disposable test databases later through your normal database administration process.
 
 ## Create a local release
 
-This packages the compiled API and built browser application together:
+At the working-copy root, choose a new output folder; do not overwrite an earlier release:
 
 ```powershell
-powershell -File .\scripts\Publish.ps1 -Workspace .\checkpoints\05-final-solution
+Set-Location web
+npm run build
+Set-Location ..
+dotnet publish api/Workshop.Api.csproj -c Release -o ./local-release-01
+New-Item -ItemType Directory -Path ./local-release-01/wwwroot
+Copy-Item -Path ./web/dist/* -Destination ./local-release-01/wwwroot -Recurse
 ```
 
-Use your participant-work path instead if releasing your own implementation. The script prints the new release folder. Stop the development app, keep Docker PostgreSQL running, and follow its instructions to run the release. Open http://127.0.0.1:5080, which now serves both the built frontend and API.
+Stop the development API and frontend with Ctrl+C. Keep installed PostgreSQL running. In the API terminal, retain the same connection to demonstrate persistence:
 
-Confirm that the saved requests remain present. This is a local release exercise, not a production deployment.
+```powershell
+$env:ConnectionStrings__Workshop = 'Host=localhost;Port=5432;Database=request_workshop;Username=workshop;Password=workshop-local-only'
+Set-Location local-release-01
+dotnet Workshop.Api.dll --urls http://127.0.0.1:5080
+```
+
+Run from the release folder so the built `wwwroot` is served. Open http://127.0.0.1:5080; the API serves both the frontend and API. Confirm saved requests remain present. Stop with Ctrl+C. This is a local release exercise.
 
 ## Five-minute demonstration
 
 Lead with what you learned: explain a concept, show how you applied it, and describe how you used Codex to solve a given task. Use the journey below to illustrate those points. If you used a recovery checkpoint, identify supplied work and explain what you inspected and practised yourself.
 
-1. Open Fjordby, whose budget is missing.
-2. Show the explanation, edit the checkbox, save, and reload.
-3. Mark it Reviewed and show the activity entry and read-only result.
-4. Keep another request New. Export CSV and show both statuses in the final column.
-5. Show one test result, the traced execution graph and agent execution record, and explain one improvement to context, instructions, verification, or stopping rules.
+Open Fjordby, whose budget is missing. Then show the explanation, edit the checkbox, save, and reload.
 
-If earlier practice has reviewed the examples, use the explicit confirmed reset first. Do not reset data during a running API session.
+Mark it Reviewed and show the activity entry and read-only result. Then keep another request New. If you completed the optional export extension, also show both statuses in the final column; this is not required for the core showcase.
+
+Show one test result, the traced execution graph and agent execution record, and explain one improvement to context, instructions, verification, or stopping rules.
+
+If earlier practice has reviewed the examples, choose a fresh training database as described in the recovery guide first. Stop the API before changing its database connection.
 
 ## Handover
 

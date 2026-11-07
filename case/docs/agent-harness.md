@@ -1,32 +1,97 @@
-# Agents, skills, and remote MCP
+# Agents, skills, and remote documentation
 
-The starter supplies two example agents and three workflow skills, plus references to existing remote MCP services. Participants author the remaining core harness; completed reference implementations stay in the instructor distribution. No MCP server runs locally, in Docker, through stdio, or on a loopback URL. The sample application and PostgreSQL still run locally using the existing setup.
+Use this mainly in session 2. You already know how to give Codex a task. Now you will write down guidance it can reuse.
 
-## Understand the three parts
+## Start with the difference
 
-| Part | Purpose | Example |
+| Part | The question it answers | Our example |
 | --- | --- | --- |
-| Custom agent | Assign a delegated worker a clear responsibility | Analyst maps code; reviewer assesses a diff |
-| Skill | Define a reusable way of working | frame-task, run-bounded-loop, change-brownfield |
-| Remote MCP server | Give Codex tools from an existing external service | Search and fetch official Microsoft Learn/OpenAI documentation |
+| Custom agent | Who has this job? | The domain advisor explains rules; the technical advisor plans a small implementation |
+| Skill | How should the job be done? | implement-api-feature describes the API implementation approach |
+| AGENTS.md | What should agents know about this project? | Where the rules are and which roles to use |
+| Remote MCP connection | Which outside tools can Codex use? | Search official documentation on Microsoft Learn |
 
-Definitions alone do not prove that Codex discovered or used them. Inspect actual agent delegation, skill use, and remote tool calls. Documentation retrieval informs a decision; it does not prove the application works.
+A **harness** is this guidance and tooling around the agent. Think of a new colleague: a job description, a procedure, project notes, and access to reference material help them work consistently.
 
-## Remote connections supplied
+## What you already have
 
-| Server | Remote endpoint | Workshop use | Default |
+- `workshop_analyst`: helps understand the task and find the relevant code.
+- `workshop_implementer`: makes one agreed change.
+- Three skills: `frame-task`, `map-context`, and `implement-slice`.
+- Templates in `case/docs/templates/` for your own agents and skills.
+- Connections to remote Microsoft Learn and OpenAI Docs in `.codex/config.toml`.
+
+From `case/start-here`, reach the templates at `../docs/templates/`. Copy a template into the project only when creating your own definition. The templates are starting points with blanks to fill in. They are not active agents or skills. Completed reference versions are in `case/checkpoints`; use them for help or recovery and clearly label any supplied definitions.
+
+## What you create during the workshop
+
+| Session | New agent | New skills | Why |
 | --- | --- | --- | --- |
-| Microsoft Learn | https://learn.microsoft.com/api/mcp | .NET 10, ASP.NET Core, EF Core, persistence, logging, and testing guidance | Enabled |
-| OpenAI Docs | https://developers.openai.com/mcp | Codex instructions, skills, custom agents, permissions, and MCP guidance | Enabled |
-| GitHub | https://api.githubcopilot.com/mcp/ | Inspect an approved repository, commit, or PR as brownfield context | Disabled; optional authentication required |
+| 2 | workshop_domain_advisor and workshop_technical_advisor | implement-business-rules, implement-api-feature, use-mcp | Clarify rules and guide the API implementation |
+| 3 | workshop_coordinator | run-bounded-loop, implement-react-feature | Organise limited work and guide the browser implementation |
+| 4 | workshop_verifier and workshop_reviewer | verify-change, review-change, trace-behavior | Check the implemented behavior, code design, and real action outcomes |
+| Optional export | No new agent | change-brownfield | Understand existing behavior before changing it |
 
-Microsoft Learn and OpenAI Docs are the core MCP connections. GitHub uses its remote service in read-only mode; participants do not need GitHub access for the core path. Do not create issues, comments, or PRs as part of this exercise.
+Creating and trying the session 2–4 definitions is part of the core task. The export skill is optional. Do not skip it to build more app features. If code work takes too long, ask the facilitator for help so you can still practise the concept.
 
-## Configure the active project
+## Guidance you could keep in a real project
 
-Every checkpoint includes .codex/config.toml with the remote URL references. New-Workspace.ps1 copies it into the active participant-work folder. There is no server implementation to build, package to launch, configuration generator, or MCP port to manage.
+Use these definitions to shape the code, not only to confirm a result. The domain advisor turns requirements into clear rules and examples. The technical advisor explains how the API, database code, and React screen should work together. Your implementer uses those decisions and the implementation skills to build the feature.
 
-Inspect the project configuration before using it:
+For example, keep readiness rules in one server evaluator, keep endpoints focused on their API contract, and have the screen use the existing typed API client. That gives you reusable project conventions for the next feature too. In session 4, the verifier checks the resulting app and the reviewer assesses its code; neither is there to test whether a workshop document is correct.
+
+See [practical examples](engineering-examples.md) for the decisions these roles and skills help you make. Keep the definitions short and specific to this project. You do not need an elaborate agent framework.
+
+## How to create an agent or skill
+
+Ask what it needs to read, what it should do, what result it should return, and when it should stop. Then check that business decisions and technical choices have clear owners. An advisor recommends an approach; the implementer changes the code. You remain responsible for accepting the work.
+
+Agents go in `.codex/agents/`. Skills go in `.agents/skills/<name>/SKILL.md`. Ask Codex to consult remote OpenAI Docs for the current format. Then explicitly request the new agent and skill on the current task. Inspect the resulting work. A file on disk is not proof that Codex loaded it.
+
+If its output is unclear, revise the instructions and explain why. Keep a short note in `docs/evidence.md`.
+
+For example, a business-rule skill should explain where rules belong and how incomplete drafts behave. An API skill should describe the endpoint, rule, and persistence responsibilities. A React skill should describe component state and API use. These guide how you build the feature. Later, checking and review skills help assess the result.
+
+```text
+Help me design a domain advisor and an implement-business-rules skill for this project.
+Explain the agent's business decisions and the skill's implementation steps separately.
+Show me the templates and propose the content before creating files.
+After I review it, help me create, discover, and use the new definitions.
+```
+
+Use only definitions available at the current session. Have one agent edit code at a time. A custom role does not give an agent extra permissions; it inherits the parent session's permissions and connections.
+
+## Use remote documentation through MCP
+
+MCP is a way for Codex to use tools provided by another service. Here, those tools search and fetch official documentation. You do not build or run an MCP server on your laptop.
+
+| Connection | Use it for | Availability |
+| --- | --- | --- |
+| Microsoft Learn | .NET, API routes, database saving, logging, and tests | Included in the project configuration |
+| OpenAI Docs | Codex project instructions, custom agents, skills, permissions, and MCP | Included in the project configuration |
+| Remote GitHub | An approved repository's history or changes | Optional; disabled until approved access is ready |
+
+Ask Codex to show which tools are actually available. Then ask one relevant question, fetch a supporting page, and explain what decision the answer helps with. Record the original URL. Each session card suggests questions.
+
+```text
+Show which tools you can actually use on remote Microsoft Learn and OpenAI Docs.
+Use the relevant service to answer this question: [your question].
+Fetch the supporting official page. Explain the answer using our current task,
+give the source URL, and say what we should do differently because of it.
+If the connection is unavailable, report that and do not invent a result.
+```
+
+Read our fictional business rules from local files. Check the running app using the browser, API calls, tests, and server logs. A documentation page tells you how something should work; it does not prove your code works.
+
+## If discovery or a connection fails
+
+Check that you opened your actual working folder and copied `.agents` and `.codex` with it. Inspect the client's tools/settings with the facilitator. Project trust, managed settings, network access, or client version can affect loading. Do not overwrite unrelated personal settings.
+
+Record what was blocked. A normal local file read is not a remote MCP call. If you use a supplied recovery definition, label it supplied and still create and try a distinct agent or skill to practise authoring.
+
+## Configuration reference
+
+This is already supplied in `.codex/config.toml`; you do not need to type it again:
 
 ```toml
 [agents]
@@ -47,90 +112,8 @@ http_headers = { "X-MCP-Readonly" = "true" }
 enabled = false
 ```
 
-Open the active folder as a trusted project in the approved Codex client. Preserve unrelated project/personal settings if merging into an existing project. Managed policy, project trust, network/proxy restrictions, or an older client can prevent loading. Rehearse the exact VS Code Insiders/Codex setup before the event. The config contains no credentials. If optional GitHub is enabled, use the approved client authentication flow; never paste tokens into chat or commit credentials.
+Keep one main session and at most two specialist agents active in the core path. Optional GitHub uses read-only access and is not required. Use the approved sign-in flow; never put tokens in prompts or commit them to the project.
 
-Check discovery through the client's MCP tools/settings. The CLI additionally offers codex mcp list and its interactive /mcp view; those commands are not universal IDE slash commands.
+For reference, the supplied reference solutions grow from 2 agents/3 skills to 4/6 after session 2, 5/8 after session 3, 7/11 after session 4, and optionally 7/12 after the export extension. These counts describe the reference, not a coding-speed competition.
 
-```text
-Confirm which workshop custom agents and repo skills you can discover.
-List the tools actually available on the remote Microsoft Learn and OpenAI
-Docs MCP servers. Search one relevant question on each, fetch an original
-supporting page, and explain what the page supports. Show source URLs.
-Do not claim a remote call succeeded if it is unavailable.
-```
-
-Discover actual tool names and schemas instead of guessing. Microsoft Learn documentation describes search, fetch, and sample lookup tools, but service schemas may change. If a connection fails, report it blocked and ask the facilitator for help. Continue with supplied local contracts as a labelled fallback; do not report an ordinary file read as MCP use.
-
-## What is supplied and what you create
-
-| Stage | Agents available in the core reference | Skills available in the core reference | Participant authoring |
-| --- | --- | --- | --- |
-| Starter and after session 1 | 2 | 3 | Inspect and use the supplied examples |
-| After session 2 | 4 | 6 | Create 2 agents and 3 skills, then use and improve them |
-| After session 3 | 5 | 8 | Create coordinator plus loop/handoff skills |
-| After session 4 | 5 | 9 | Create tracing skill |
-| After session 5 | 5 | 10 | Create brownfield skill |
-
-These counts describe the reference core path, not a grading quota or all files participants must copy. Optional agents/skills can differ. The participant pack contains only the starter; full answers and the wider example library remain instructor-only.
-
-### Supplied examples
-
-- Agents: workshop_analyst (frame/map context) and workshop_implementer (own one accepted slice).
-- Skills: frame-task, map-context, and implement-slice.
-- Remote configuration: Microsoft Learn/OpenAI Docs; optional authenticated read-only GitHub.
-- Inactive scaffolds: templates/custom-agent.toml, templates/workflow.SKILL.md, and templates/verify-change.SKILL.md.
-
-Templates are outside the active discovery locations and contain placeholders. Copy them only as the starting point for your own definition. Do not report a template as an operational agent/skill.
-
-### Create during session 2
-
-Create workshop_verifier and workshop_reviewer under .codex/agents/. Give the verifier responsibility for actual checks and the reviewer responsibility for independently inspecting diff/evidence. Specify inputs, outputs, tools/skills, boundaries, and stopping conditions. The reviewer recommends; the human accepts.
-
-Create verify-change, review-change, and use-mcp under .agents/skills/<name>/SKILL.md. Define when each procedure applies, ordered steps, evidence/output, and handling of failures/ambiguity. Use the real verification command and remote documentation tools. Distinguish passed, failed, and not run.
-
-Review the design before asking Codex to generate files. Confirm discovery; explicitly invoke each new skill and delegate to both new agents on the readiness task. Inspect actual outputs, revise at least one definition using feedback, and record what changed. Authoring and exercising the harness is essential, not an optional addition after implementing the app.
-
-### Create during later sessions
-
-- Session 3: workshop_coordinator, run-bounded-loop, and record-handoff. Define single-writer ownership, handoffs, feedback branches, an execution budget, and human review.
-- Session 4: trace-behavior. Define how to follow real response/correlation/log/activity evidence without inventing observations.
-- Session 5: change-brownfield. Define caller/contract discovery, preservation boundaries, regression checks, and review.
-- Optional session-2 depth: create workshop_docs and research-docs, or create an advanced plan-change procedure and documentation specialist. These optional definitions are not prerequisites for later core work.
-
-Project role files use name, description, and developer_instructions in TOML. Skill files use name and description YAML frontmatter followed by working instructions. Look up current details through remote OpenAI Docs. Agent names alone do not activate a role: request delegation and inspect discovery/child results. Agents inherit parent permissions/MCP connections; role instructions are not separate sandboxes. Keep one writer and at most two child agents in the basic path.
-
-If recovering a completed checkpoint, label its definitions supplied. Still author/exercise a distinct role or skill to demonstrate the learning outcome. Do not erase the participant's earlier work or treat copying a reference answer as authoring.
-
-## Practice throughout the sessions
-
-| Session | Agent/skill practice | Remote MCP question | Application evidence |
-| --- | --- | --- | --- |
-| 1 | Analyst frames/maps; implementer builds the first slice | OpenAI repository instructions/context; Microsoft minimal-API routing/JSON | Browser/API selections |
-| 2 | Create verifier/reviewer and 3 skills; invoke, evaluate, improve | OpenAI skill/custom-agent configuration; Microsoft API validation | Actual readiness checks |
-| 3 | Create coordinator and loop/handoff skills; sequence bounded work | Agent permission inheritance; EF Core async persistence | Save/reload and stopping record |
-| 4 | Create tracing skill; separate verification and review | EF transactions/concurrency; human review/permission boundaries | Direct API checks, correlation log, activity |
-| 5 | Create brownfield skill; map callers and review compatibility | ASP.NET file/encoding behavior; optional GitHub history | CSV downloads and regression results |
-
-Read rules, contracts, and prior handoffs directly from repository files. Use normal browser, direct HTTP, tests, and server logs for runtime behavior. Record MCP server/tool, query, original URL, supported claim, relevance, and resulting decision in docs/evidence.md. Keep a short record rather than copying large documentation pages.
-
-## Prompt example
-
-```text
-Use only agents/skills created by this session. In session 1 the main Codex
-session performs documentation research directly; from session 2 invoke the
-participant-created $use-mcp skill. The workshop_docs role is optional, not a
-pre-existing core dependency. Use the relevant remote Microsoft Learn or OpenAI Docs server.
-Discover tools, search, fetch the original supporting page, and return the
-source URL and the decision it informs. Read our fictional rules directly
-from local files. Use one implementer for the accepted change, then a verifier
-and separate reviewer. Run actual checks and record results and sources in
-docs/evidence.md. Documentation is not proof of runtime behavior.
-```
-
-Optional 1 applies these practices to an approachable feature. Optional 2 adds harder coordination or compatibility work. Remote GitHub is available only when approved access is ready; ordinary local files/diffs remain a valid core alternative. No local browser MCP server is included: use ordinary browser tools for the application.
-
-## Pre-event verification
-
-Check config TOML and remote-only transport structure, then verify live connections, actual tools, custom-role discovery/delegation, and skill activation in the intended client. Static checks do not demonstrate remote connectivity. The application, PostgreSQL, browser journey, and Windows rehearsal still require their existing verification.
-
-References checked 4 November 2026: [Codex custom agents](https://learn.chatgpt.com/docs/agent-configuration/subagents), [repo skills](https://learn.chatgpt.com/docs/build-skills), [Codex MCP configuration](https://learn.chatgpt.com/docs/mcp), [Microsoft Learn MCP](https://learn.microsoft.com/en-us/training/support/mcp-developer-reference), and [GitHub remote MCP configuration](https://github.com/github/github-mcp-server/blob/main/docs/server-configuration.md).
+Further reading: [custom agents](https://learn.chatgpt.com/docs/agent-configuration/subagents), [skills](https://learn.chatgpt.com/docs/build-skills), [MCP configuration](https://learn.chatgpt.com/docs/mcp), and [Microsoft Learn MCP](https://learn.microsoft.com/en-us/training/support/mcp-developer-reference).

@@ -1,66 +1,57 @@
 # Build session 3: Correct missing information and save it
 
-**Learning:** Loop and graph engineering. **When:** 15:00-15:45 on day 1.
+**When:** Day 2, 09:30–11:30. **Time:** 85 minutes core, up to 25 optional, then 10 for reflection and handoff.
 
-The business case is still four fields, three rules, and two statuses. Read docs/rules.md.
+Resume your Build 2 result after the Day 2 follow-up and Loop and Graph Engineering. Use the longer build to exercise the workflow, inspect feedback and improve your guidance. Keep graph engineering conceptual: a simple workflow with retry, stop and human handoff branches is enough.
 
-Use the prepared [agent harness](agent-harness.md) for the role definitions, skill catalogue, MCP tools, and setup.
+## What you are learning
 
-## Learning outcome
+**Loop and graph engineering.** A loop means trying a change, checking it, and repairing it if needed. A graph shows the possible next steps. Here, a passing check leads to human review; a failed check may lead to repair. A blocker means stop and explain.
 
-Explain the loop and graph using your run. Show the goal, feedback, branches, and stopping rule you gave Codex.
+## What the app should do
 
-## Core task
+The caseworker can edit the four existing fields, save, and see the updated information after reloading the page.
 
-Before the loop task, create workshop_coordinator and two new skills: run-bounded-loop and record-handoff. Specify one writer, handoffs, a two-repair/20-minute stopping rule, and concise evidence. Use the new coordinator and both skills on this task. Do not assume the optional plan-change skill exists.
 
-1. State the goal: fix the existing request fields, save them, and show the new readiness result.
-2. Read the supplied execution graph in the shared docs/execution-graph.md. Trace the pass, repair, blocked, and human-review branches during your run; explain any unvisited branch. No graph framework is required.
-3. Delegate at most two repair iterations or 20 minutes of execution, whichever comes first.
-4. Implement PUT /api/requests/{id}. Allow incomplete drafts, trim string fields, and keep Reviewed requests read-only. Increment the supplied internal Version when saving.
-5. Add a small edit form using the existing four fields. Disable conflicting actions while a save is pending and show an error if saving fails.
-6. Correct the missing budget, save, reload, and confirm the change persists. Review the diff and record attempts and outcome.
+## Work through the core task
 
-## Required agent, skill, and MCP practice
+Give Codex one clear goal: let the caseworker correct the existing fields, save the request, and see the updated readiness result. Create `workshop_coordinator` and `run-bounded-loop` to organise the work. Also create `implement-react-feature`, a skill for using the existing React components and typed API client, showing saving/error feedback, and keeping a draft when saving fails.
 
-1. Ask workshop_coordinator to use $run-bounded-loop to sequence one implementer and verifier with an explicit handoff, repair branch, budget, and review point.
-2. Use OpenAI Docs MCP to check how custom agents inherit permissions and Microsoft Learn MCP for the SaveChangesAsync/persistence behavior relevant to this task. Apply the findings rather than merely collecting links.
-3. Read the previous handoff directly from docs/evidence.md. Inspect saved values before/after through browser/API tools, then append actual checks, visited branches, and stopping reason.
+Ask the technical advisor how to connect the edit form, API call, and saved response without putting business rules in the screen. Use the domain advisor if a business decision is unclear. Let the coordinator sequence one implementer using the business-rule, API, and React skills where relevant. Use the main Codex session or analyst for checks and review the result yourself; the dedicated verifier and reviewer come in session 4.
 
-Keep this within the existing core time. Report unavailable remote calls as blocked and ask the facilitator for help; never invent a lookup result.
+Follow the [execution graph](execution-graph.md). Allow at most two repairs or 20 minutes of agent work, whichever comes first. You monitor the time. If blocked or out of time, stop and explain what remains. You do not need to build a graph framework.
 
-## Acceptance examples
+You should be able to save incomplete information as a draft. After a successful save, the screen should show the saved values and updated readiness. Try Fjordby by ticking Budget attached, saving, and reloading. If saving fails, keep the draft and show an error. Review the change and have the coordinator leave a short development handoff in `docs/evidence.md`.
 
-- Correcting the budget produces Ready to review.
-- Saved values survive browser reload.
-- Failed save retains the draft and shows a useful message.
+## Try this with Codex
 
-For task help, adaptable prompts, and troubleshooting, use the shared [go-to guide](go-to-guide.md).
+Start with this instruction and adapt it to your work:
 
-## Suggested Codex task
+```text
+We are doing session 3. Help me create workshop_coordinator, run-bounded-loop, and implement-react-feature. Use our technical advisor to plan the form/API boundary, then have the implementer use the API and React skills to build editing, saving, and rechecking. Leave a short handoff in docs/evidence.md. Explain the route using the supplied graph. Keep one code writer. Stop after two repair attempts or 20 minutes, or sooner if blocked. I will monitor the time. Show results for human review.
+```
 
-> Let the caseworker edit and save the four existing fields and rerun readiness. Plan, implement, and verify within two repair iterations or 20 minutes. Stop if blocked and give me evidence for review.
+Then, when ready:
 
-## Optional tasks
+```text
+Check Fjordby by ticking Budget attached, saving, and reloading. Explain what was saved and which checks actually ran. Record the route taken, any repairs, and why you stopped. Do not claim that a prompt enforces a timer.
+```
 
-### Optional 1: Unsaved-change protection
+Read Codex's plan and results yourself. If a role, skill, or remote tool is unavailable, record the problem and ask the facilitator. An unavailable tool is not a successful tool call.
 
-Show when a draft differs from saved values and provide Cancel to restore those values.
+## How you know it worked
 
-**Deliverable:** A usable dirty/Cancel/navigation workflow and a traced Codex run.
+- Correcting and saving the budget changes the readiness result.
+- Saved values remain after a page reload.
+- A failed save keeps the draft and shows an error.
+- Your record states the stopping rule and why the run ended.
 
-### Optional 2: Race-safe editing across requests
+Run `dotnet test Workshop.slnx` from your working-copy root. Run `npm test` and `npm run build` from its `web/` folder. Ask Codex to run these with you and explain any failures. See [setup](00-before-first-build.md) for the full commands. Add checks for the new examples too; old passing tests alone do not prove the new feature works.
 
-Starting from the session-3 core, define a per-request edit state machine including loading, dirty, saving, failed, and saved. Include the necessary draft protection without assuming Optional 1.
 
-**Deliverable:** A state-based editing implementation with controlled race demonstrations and documented concurrency limits.
+## If you finish the core early
 
-Optional 2 is deliberately more difficult and starts from this session's core; Optional 1 is not required. See the [steps and Codex prompts](optional-challenges.md#session-3). Choose a working slice and stop for the next topic; neither level is needed later.
+- **Optional 1 — Unsaved-change protection:** the more approachable challenge.
+- **Optional 2 — Race-safe editing across requests:** a harder challenge with more design work.
 
-## Reflection and evidence
-
-Run `powershell -File .\Verify.ps1` from your working copy. Existing green checks alone do not prove the new feature works. Write and run checks for your acceptance examples.
-
-The instructor can supply the session-3 acceptance pack, or a fresh recovery copy of `03-after-build-3`. Preserve your own work first.
-
-At the session close, explain the concept in your own words, how you used it with Codex, and one thing you would improve. Keep the record short. If implementation blocks progress, use facilitator support or a clearly identified recovery checkpoint so you can practise the next concept. Optional features never determine learning success.
+Both involve building a useful feature. Choose either; Optional 2 does not require Optional 1. See [the challenge steps and prompts](optional-challenges.md#session-3). Save your working core first. Completing optional work is never required for a later session or the final goal.

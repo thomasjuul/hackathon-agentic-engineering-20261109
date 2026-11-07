@@ -1,35 +1,13 @@
-# Development evidence
+# Development notes
 
-Session:
-Concept in my own words:
-How I applied it with Codex:
-What I would improve next time:
-Supplied/recovery work used (if any):
-Goal:
-Context and instructions used:
-Allowed scope and actions (including human review boundary):
-Iteration/time budget:
-Elapsed time:
+Record decisions and actual check results for each change. Include the requested behavior, relevant files or references, changed behavior, command results, unresolved issues, and review decision. Preserve earlier notes and keep credentials out of this file.
 
-| Example | Expected result | Observed result | Evidence |
-| --- | --- | --- | --- |
-| | | | |
+## 2026-11-07: Product-facing UI
 
-Checks actually run:
-Checks blocked or not run, and why:
-Agent failures and repair attempts (or explicitly none):
-Visited graph branches and unvisited alternatives:
-Stopping reason (checks passed / blocked / budget exhausted):
-Human intervention and final decision (accept / request changes / defer):
-What changed in the harness:
-What the human inspected before accepting:
-Remaining limitations:
+Replaced training branding, instructions and footers with Request Workbench business copy across the starter and all checkpoints. Service messages use user-facing language. New activity uses Request officer; response mapping also normalizes the previous actor label for existing records. Added the product UI constraint to project guidance.
 
-Agent assessment: context used correctly? scope respected? results reported accurately? stopping rule followed?
+Validation: archive integrity, matching application source across all packages (including nested copies), and UI text checks passed for all seven stages. Runtime verification could not complete: npm dependencies were unavailable locally and registry.npmjs.org failed DNS resolution; npm test and npm run build could not find vitest/tsc. The starter dotnet test attempt returned no test result; the no-restore attempt exited 1 without diagnostics. Remaining stages were not runtime-tested. Human review pending.
 
-Keep application results separate from the assessment of Codex. Label facilitator-supplied examples as supplied evidence, not your own run. Keep the record short. Passing a pre-existing test is not evidence for a feature that test does not cover.
+## 2026-11-07: Usable request workspace from startup
 
-Custom agents actually discovered/delegated (or blocked):
-Skills actually used/adapted:
-MCP server/tool calls and actual observations (or blocked):
-Role/skill/tool distinction I can explain:
+Promoted the existing checkpoint-01 list/detail UI, API endpoints and selection tests into start-here and checkpoint 00. Retained the database seed and existing contracts. Updated Build 1 and presenter wording to treat list/detail as supplied functionality. Empty-list text no longer appears when loading failed. Package consistency checks passed; runtime verification remains outstanding in this environment.

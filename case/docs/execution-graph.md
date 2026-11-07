@@ -1,21 +1,30 @@
-# A bounded Codex workflow
+# A simple route for Codex's work
 
-Use this supplied graph in the core task for session 3 and reuse it in sessions 4 and 5. A graph describes the available steps and branches; the loop is the repeated implement/check/repair route. No graph library or application agent is required.
+Use this in session 3. A **loop** repeats a check and repair. A **graph** shows the possible next steps. You are following this route while developing the app; you are not building a graph framework.
 
 ```mermaid
 flowchart TD
-    P["Plan and confirm context"] --> I["Implement within scope"]
-    I --> C{"Check result"}
-    C -->|Pass| H["Human reviews evidence"]
-    C -->|Fail, budget remains| R["Repair"]
+    P["Agree the task and limits"] --> I["Make the small change"]
+    I --> C{"Check the result"}
+    C -->|Pass| H["Human reviews the result"]
+    C -->|Fail and time remains| R["Repair the problem"]
     R --> C
-    C -->|Blocked or budget exhausted| S["Stop and report"]
-    P -->|Unclear requirement| S
+    C -->|Blocked or limit reached| S["Stop and explain"]
+    P -->|Task is unclear| S
     S --> H
 ```
 
-Before execution, agree on the goal, relevant context, allowed changes, checks, and budget: at most two repair iterations or 20 minutes of agent execution, whichever comes first. The operator monitors elapsed time and stops execution at the limit; a prompt alone does not enforce a timer. Initial implementation is not a repair iteration.
+## Before you start
 
-Trace the branches actually visited in your evidence record and explain unvisited alternatives. If everything passes first time, label the other routes as hypothetical rather than inventing failures. A blocker means reporting what is missing and asking for the necessary human decision before dependent work resumes. Human review ends with accept, request changes, or defer; another run requires a new bounded instruction.
+Agree the goal, useful files/examples, allowed changes, and checks. Allow at most **two repair attempts or 20 minutes of agent work**, whichever comes first. The initial implementation is not a repair attempt. You monitor the time; writing a limit in a prompt does not enforce a timer.
 
-The graph controls development work with Codex. Application status New/Reviewed is a separate business workflow.
+## While you work
+
+- **Pass:** inspect the check results and changed lines. Decide whether to accept them.
+- **Fail:** explain the failure, make a repair if budget remains, and check again.
+- **Blocked:** explain what is missing and stop dependent work until a person resolves it.
+- **Limit reached:** stop and report what works, what failed, and what remains.
+
+Write down the route actually taken. If everything passes first time, explain what the other routes would mean without inventing a failure. Human review can end in accept, request changes, or defer. Another run needs a new agreed task and limit.
+
+The app's New/Reviewed statuses describe the business request. They are separate from this route for developing code with Codex.
